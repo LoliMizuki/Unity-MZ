@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 static public partial class MZ {
 
-    public class Verifier {
+    public class Verifiers {
 
         static public bool String(string s) {
             return (s != null && s.Length > 0);

@@ -31,7 +31,7 @@ static public partial class MZ {
             
             object newValue = null;
     
-            bool hasLabel = MZ.Verifier.String(label);
+            bool hasLabel = MZ.Verifiers.String(label);
             
             if(t == typeof(int)) {
                 string strValue = (preValue != null)? preValue.ToString() : "0";
@@ -99,7 +99,7 @@ static public partial class MZ {
                 return null;
             }
     
-            if(!MZ.Verifier.String(str)) {
+            if(!MZ.Verifiers.String(str)) {
                 str = stringsList[0];
             }
     

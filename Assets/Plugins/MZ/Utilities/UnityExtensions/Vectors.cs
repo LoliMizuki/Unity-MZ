@@ -75,8 +75,21 @@ static public partial class MZ {
             bool success;
             return Vector3FromString(posStr, out success);
         }
-    }
-    
+    }    
+}
+
+public struct Vector2i {
+	public int x;
+	public int y;
+	
+	public Vector2i(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	override public string ToString() {
+		return string.Format("(x: {0}, y: {1})", x, y);
+	}
 }
 
 public static class MZVectorsExtensions {

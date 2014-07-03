@@ -77,7 +77,7 @@ public class FastRuntimeSpritesheetMain : MonoBehaviour {
 	
 	void Make1024x1_NonPoT() {
 		DateTime pre = System.DateTime.Now;
-		MZ.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
+		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
 		DateTime after = System.DateTime.Now;
 		
 		double passedTime = 0.001 * (after - pre).TotalMilliseconds;
@@ -96,7 +96,7 @@ public class FastRuntimeSpritesheetMain : MonoBehaviour {
 	
 	void Make1024x1_PoT() {
 		DateTime pre = System.DateTime.Now;
-		MZ.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
+		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
 		DateTime after = System.DateTime.Now;
 		
 		double passedTime = 0.001 * (after - pre).TotalMilliseconds;
@@ -108,11 +108,11 @@ public class FastRuntimeSpritesheetMain : MonoBehaviour {
 	
 	void Make1024xN_NonPoT() {
 		DateTime pre = System.DateTime.Now;
-		MZ.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
-		MZ.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
-		MZ.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
-		MZ.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
-		MZ.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
+		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
+		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
+		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
+		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
+		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
 		DateTime after = System.DateTime.Now;
 		
 		double passedTime = 0.001 * (after - pre).TotalMilliseconds;
@@ -124,11 +124,11 @@ public class FastRuntimeSpritesheetMain : MonoBehaviour {
 	
 	void Make1024xN_PoT() {
 		DateTime pre = System.DateTime.Now;
-		MZ.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
-		MZ.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
-		MZ.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
-		MZ.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
-		MZ.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
+		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
+		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
+		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
+		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
+		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
 		DateTime after = System.DateTime.Now;
 		
 		double passedTime = 0.001 * (after - pre).TotalMilliseconds;
