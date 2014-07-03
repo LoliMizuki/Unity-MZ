@@ -11,24 +11,18 @@ public class FastRuntimeSpritesheetMain : MonoBehaviour {
 	
 	string _message = "";
 	
-	GameObject _textureObj = null;
-	
 	Queue<Action> _testCaseActions = new Queue<Action>();
 	
 	long _preMem = 0;
 
 	void Start() {
-		_testCaseActions.Enqueue(Make1024x1_NonPoT);
-		_testCaseActions.Enqueue(Make1024xN_NonPoT);
-		_testCaseActions.Enqueue(Make1024x1_PoT);
-		_testCaseActions.Enqueue(Make1024xN_PoT);
-		
-		_textureObj = new GameObject("texture");
-		_textureObj.AddComponent<SpriteRenderer>();
-		_textureObj.transform.localPosition = Vector3.zero;
-		_textureObj.transform.localScale = new Vector3(.4f, .4f, 0);
-		
-		StartDelayAndDequeueNextAction();
+		TestToMatchOriginSprite();
+//		_testCaseActions.Enqueue(Make1024x1_NonPoT);
+//		_testCaseActions.Enqueue(Make1024xN_NonPoT);
+//		_testCaseActions.Enqueue(Make1024x1_PoT);
+//		_testCaseActions.Enqueue(Make1024xN_PoT);
+//				
+//		StartDelayAndDequeueNextAction();
 	}
 	
 	void Update() {
@@ -77,42 +71,52 @@ public class FastRuntimeSpritesheetMain : MonoBehaviour {
 	
 	void Make1024x1_NonPoT() {
 		DateTime pre = System.DateTime.Now;
-		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
+		MZ.Sprites.FastRuntimeSpritesheet.NewWithSizeAndTextures(1024, NonPotTexturesSet2());
 		DateTime after = System.DateTime.Now;
 		
 		double passedTime = 0.001 * (after - pre).TotalMilliseconds;
 		
 		AddMessageToNewLine("1024x1, non-pot: passed time = " + passedTime.ToString());
 		
-//		_textureObj.GetComponent<SpriteRenderer>().sprite = Sprite.Create(
-//			s.spritesheetTexture,
-//			new Rect(0, 0, s.spritesheetTexture.width, s.spritesheetTexture.height),
-//			new Vector2(0.5f, 0.5f),
-//			1
-//		);
-		
 		StartDelayAndDequeueNextAction();
 	}
 	
 	void Make1024x1_PoT() {
 		DateTime pre = System.DateTime.Now;
-		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
+		MZ.Sprites.FastRuntimeSpritesheet.NewWithSizeAndTextures(1024, PotTexturesSet1());
 		DateTime after = System.DateTime.Now;
 		
 		double passedTime = 0.001 * (after - pre).TotalMilliseconds;
 		
 		AddMessageToNewLine("1024x1, pot: passed time = " + passedTime.ToString());
-		
+			
 		StartDelayAndDequeueNextAction();
+	}
+	
+	void TestToMatchOriginSprite() {
+		MZ.Sprites.FastRuntimeSpritesheet frss = MZ.Sprites.FastRuntimeSpritesheet.NewWithSizeAndTextures(1024, PotTexturesSet1());
+		
+		GameObject go1 = new GameObject("create");
+		go1.AddComponent<SpriteRenderer>().sprite = frss.frameInfos[0].sprite;
+		go1.transform.position = new Vector3(0, 0, -50);
+		go1.renderer.material.color = new Color(1, 1, 1, 0.5f);
+		
+		string name = frss.frameInfos[0].name;
+		Texture2D originTex = Resources.Load<Texture2D>("pot/" + name);
+		Sprite s = Sprite.Create(originTex, new Rect(0, 0, originTex.width, originTex.height), new Vector2(.5f, .5f), 1);
+		
+		GameObject go2 = new GameObject("origin");
+		go2.AddComponent<SpriteRenderer>().sprite = s;
+		go2.transform.position = Vector3.zero;
 	}
 	
 	void Make1024xN_NonPoT() {
 		DateTime pre = System.DateTime.Now;
-		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
-		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
-		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
-		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
-		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(NonPotTexturesSet2());
+		MZ.Sprites.FastRuntimeSpritesheet.NewWithSizeAndTextures(1024, NonPotTexturesSet2());
+		MZ.Sprites.FastRuntimeSpritesheet.NewWithSizeAndTextures(1024, NonPotTexturesSet2());
+		MZ.Sprites.FastRuntimeSpritesheet.NewWithSizeAndTextures(1024, NonPotTexturesSet2());
+		MZ.Sprites.FastRuntimeSpritesheet.NewWithSizeAndTextures(1024, NonPotTexturesSet2());
+		MZ.Sprites.FastRuntimeSpritesheet.NewWithSizeAndTextures(1024, NonPotTexturesSet2());
 		DateTime after = System.DateTime.Now;
 		
 		double passedTime = 0.001 * (after - pre).TotalMilliseconds;
@@ -124,11 +128,11 @@ public class FastRuntimeSpritesheetMain : MonoBehaviour {
 	
 	void Make1024xN_PoT() {
 		DateTime pre = System.DateTime.Now;
-		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
-		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
-		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
-		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
-		MZ.Sprites.FastRuntimeSpritesheet.TestWithTextures(PotTexturesSet());
+		MZ.Sprites.FastRuntimeSpritesheet.NewWithSizeAndTextures(1024, PotTexturesSet1());
+		MZ.Sprites.FastRuntimeSpritesheet.NewWithSizeAndTextures(1024, PotTexturesSet1());
+		MZ.Sprites.FastRuntimeSpritesheet.NewWithSizeAndTextures(1024, PotTexturesSet1());
+		MZ.Sprites.FastRuntimeSpritesheet.NewWithSizeAndTextures(1024, PotTexturesSet1());
+		MZ.Sprites.FastRuntimeSpritesheet.NewWithSizeAndTextures(1024, PotTexturesSet1());
 		DateTime after = System.DateTime.Now;
 		
 		double passedTime = 0.001 * (after - pre).TotalMilliseconds;
@@ -220,7 +224,7 @@ public class FastRuntimeSpritesheetMain : MonoBehaviour {
 		return texes;
 	}
 	
-	Texture2D[] PotTexturesSet() {
+	Texture2D[] PotTexturesSet1() {
 		Texture2D[] texes = {
 			Resources.Load<Texture2D>("pot/sev0001a"),
 			Resources.Load<Texture2D>("pot/sev0001b"),

@@ -1,8 +1,7 @@
 using UnityEngine;
-using System.Collections;
-
 using System;
 using System.IO;
+using System.Collections.Generic;
 
 static public partial class MZ {
 
@@ -10,65 +9,58 @@ static public partial class MZ {
 
 		public class FastRuntimeSpritesheet {
 		
-			static public FastRuntimeSpritesheet TestWithTextures(Texture2D[] textures) {
+			static public FastRuntimeSpritesheet NewWithSize(int size) {
 				FastRuntimeSpritesheet s = new FastRuntimeSpritesheet();
-				s.SetSpritesheetTextureWithSizeFormat(512, 512);
-				s.EmbedTexturesToSpritesheet(textures);
-				
+				s.SetSpritesheetTextureWithSizeFormat(size, size);
 				return s;
 			}
 			
-			static public FastRuntimeSpritesheet NewWithSize(int width, int height) {
-				FastRuntimeSpritesheet s = new FastRuntimeSpritesheet();
-				s.SetSpritesheetTextureWithSizeFormat(width, height);
-				return s;
-			}
-			
-			static public FastRuntimeSpritesheet NewWithSizeAndTextures(int width, int height, Texture2D[] textures) {
-				FastRuntimeSpritesheet s = NewWithSize(width, height);
+			static public FastRuntimeSpritesheet NewWithSizeAndTextures(int size, Texture2D[] textures) {
+				FastRuntimeSpritesheet s = NewWithSize(size);
 				s.EmbedTexturesToSpritesheet(textures);
 				return s;
 			}
 			
-			public Texture2D spritesheetTexture { get { return _spritesheetTexture; } }
+			public Texture2D spritesheetTexture { get; internal set; }
+			
+			public List<FrameInfo> frameInfos { get; internal set; }
 			
 			public void ExportToPngFile(string path) {
-				if (_spritesheetTexture == null) {
+				if (spritesheetTexture == null) {
 					MZ.Debugs.Log("spritesheetTexture is not exist");
 					return;
 				}
 				
-				byte[] bytes = _spritesheetTexture.EncodeToPNG();
+				byte[] bytes = spritesheetTexture.EncodeToPNG();
 				File.WriteAllBytes(path, bytes);
 			}
 			
 			public void ClearSpritesheetTexture() {
-				if (_spritesheetTexture == null) return;
-				Texture.DestroyImmediate(_spritesheetTexture);
+				frameInfos.Clear();
+				if (spritesheetTexture != null) Texture.DestroyImmediate(spritesheetTexture);
 			}
 			
-			Texture2D _spritesheetTexture = null;
-			
-			Vector2i _spritesheetTextureMaxPosition { get { return new Vector2i(_spritesheetTexture.width - 1, _spritesheetTexture.height - 1); } }
+			Vector2i _spritesheetTextureMaxPosition { get { return new Vector2i(spritesheetTexture.width - 1, spritesheetTexture.height - 1); } }
 			
 			private FastRuntimeSpritesheet() {
+				frameInfos = new List<FrameInfo>();
 			}
 			
 			void SetSpritesheetTextureWithSizeFormat(int width, int height) {
-				if (_spritesheetTexture != null) {
-					Texture.DestroyImmediate(_spritesheetTexture);
+				if (spritesheetTexture != null) {
+					Texture.DestroyImmediate(spritesheetTexture);
 				}
 				
-				_spritesheetTexture = new Texture2D(width, height);
-				for (int x = 0; x < _spritesheetTexture.width; x++) {
-					for (int y = 0; y < _spritesheetTexture.height; y++) {
-						_spritesheetTexture.SetPixel(x, y, new Color(1, 1, 1, 0));
+				spritesheetTexture = new Texture2D(width, height);
+				for (int x = 0; x < spritesheetTexture.width; x++) {
+					for (int y = 0; y < spritesheetTexture.height; y++) {
+						spritesheetTexture.SetPixel(x, y, new Color(1, 1, 1, 0));
 					}
 				}
 			}
 			
 			void EmbedTexturesToSpritesheet(Texture2D[] textures) {
-				if (_spritesheetTexture == null) {
+				if (spritesheetTexture == null) {
 					MZ.Debugs.Log("no spritesheet texture exist, please create it first");
 					return;
 				}
@@ -77,6 +69,8 @@ static public partial class MZ {
 				int y = 1;
 				int nextY = 0;
 				
+				List<FramePamaters> framePamaters = new List<FramePamaters>();
+				
 				foreach (Texture2D t in textures) {
 					if (x + t.width >= _spritesheetTextureMaxPosition.x) {
 						nextY++;
@@ -84,7 +78,10 @@ static public partial class MZ {
 						x = 0;
 					}
 					
-					EmbedTextureToSpritesheetWithPosition(t, new Vector2i(x, y));
+					FramePamaters fp = null;
+					EmbedTextureToSpritesheetWithPosition(t, new Vector2i(x, y), out fp);
+					if (fp != null) framePamaters.Add(fp);
+					
 					x += t.width + 1;
 					nextY = (y + t.height > nextY)? y + t.height : nextY;
 					
@@ -93,11 +90,14 @@ static public partial class MZ {
 					}
 				}
 				
-				_spritesheetTexture.Apply();
+				spritesheetTexture.Apply();
+				SetNewFrameInfosWithParametersList(framePamaters);
 			}
 		
-			void EmbedTextureToSpritesheetWithPosition(Texture2D texture, Vector2i pos) {
-				if (_spritesheetTexture == null) return;
+			void EmbedTextureToSpritesheetWithPosition(Texture2D texture, Vector2i pos, out FramePamaters fp) {
+				fp = null;
+			
+				if (spritesheetTexture == null) return;
 				if (pos.x + texture.width >= _spritesheetTextureMaxPosition.x || pos.y + texture.height >= _spritesheetTextureMaxPosition.y) return;
 				
 				int maxX = pos.x + texture.width;
@@ -106,9 +106,32 @@ static public partial class MZ {
 				int x, y, xInTex, yInTex;
 				for (x = pos.x, xInTex = 0; x < maxX; x++, xInTex++) {
 					for (y = pos.y, yInTex = 0; y < maxY; y++, yInTex++) {
-						_spritesheetTexture.SetPixel(x, y, texture.GetPixel(xInTex, yInTex));
+						spritesheetTexture.SetPixel(x, y, texture.GetPixel(xInTex, yInTex));
 					}	
 				}
+				
+				fp = new FramePamaters();
+				fp.name = texture.name;
+				fp.uvRect = new Rect(pos.x, pos.y, texture.width, texture.height);
+				fp.pivot = new Vector2(.5f, .5f);
+			}
+			
+			void SetNewFrameInfosWithParametersList(List<FramePamaters> list) {
+				if (spritesheetTexture == null) return;
+				if (frameInfos == null) frameInfos = new List<FrameInfo>();
+			
+				frameInfos.Clear();
+				
+				foreach (FramePamaters fp in list)  {
+					FrameInfo fi = FrameInfo.NewWithTextureUVPivot(spritesheetTexture, fp.uvRect, fp.pivot, fp.name);
+					frameInfos.Add(fi);
+				}
+			}
+			
+			class FramePamaters {
+				public string name = string.Empty;
+				public Rect uvRect = new Rect();
+				public Vector2 pivot = Vector2.zero;
 			}
 		}
 	}

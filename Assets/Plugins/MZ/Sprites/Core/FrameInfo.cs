@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 static public partial class MZ {
@@ -7,7 +7,7 @@ static public partial class MZ {
 
 	    public class FrameInfo {
 	
-	        static public FrameInfo NewFrameInfoWithTextureUVPivot(Texture2D texture, Rect uvRect, Vector2 pivot, string name) {
+	        static public FrameInfo NewWithTextureUVPivot(Texture2D texture, Rect uvRect, Vector2 pivot, string name) {
 	            FrameInfo frameInfo = new FrameInfo();
 	            frameInfo._name = ClearFrameNameFromOrigin(name);
 	            frameInfo._texture = texture;

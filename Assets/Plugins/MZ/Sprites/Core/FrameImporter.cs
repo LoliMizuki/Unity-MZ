@@ -63,7 +63,7 @@ static public partial class MZ {
 	
 				Vector2 pivot = PivotFromFrameAndSourceSizeRects(originFrameRect, sourceSizeRect);
 				
-				MZ.Sprites.FrameInfo frameInfo = MZ.Sprites.FrameInfo.NewFrameInfoWithTextureUVPivot(texture, frameRect, pivot, name);
+				MZ.Sprites.FrameInfo frameInfo = MZ.Sprites.FrameInfo.NewWithTextureUVPivot(texture, frameRect, pivot, name);
 	        
 	        	return frameInfo;
 	        }
