@@ -15,14 +15,14 @@ static public partial class MZ {
             
             if(texture != null) {
                 Rect frameRect = new Rect(lastRect.x + offsetInnerBox, lastRect.y + offsetInnerBox, width - offsetInnerBox*2, height - offsetInnerBox*2);
-                GUI.DrawTexture(frameRect, texture);
+                UnityEngine.GUI.DrawTexture(frameRect, texture);
             }
             
             return lastRect;
         }
         
         static public Rect DrawTextureToRect(Texture2D texture, Rect rect) {
-            GUI.DrawTexture(rect, texture);
+			UnityEngine.GUI.DrawTexture(rect, texture);
             return rect;        
         }
         

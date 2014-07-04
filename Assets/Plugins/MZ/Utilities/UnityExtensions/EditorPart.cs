@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 static public partial class MZ {
 
-    public interface IMZEditorPart<T> {
+    public interface IEditorPart<T> {
         T editor { get; }
         Dictionary<string, object> dataDict { get; }
         void Reset();
@@ -18,7 +18,7 @@ static public partial class MZ {
         Dictionary<string, object> GetOutputDict();
     }
     
-    public class MZEditorPart<T> : IMZEditorPart<T> {
+    public class EditorPart<T> : IEditorPart<T> {
         
         public T editor {
             get {
@@ -37,7 +37,7 @@ static public partial class MZ {
         }
         Dictionary<string, object> _dataDictCache;
         
-        public MZEditorPart(T editor) {
+        public EditorPart(T editor) {
             _editor = editor;
         }
         

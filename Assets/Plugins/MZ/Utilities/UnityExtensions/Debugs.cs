@@ -27,27 +27,41 @@ static public partial class MZ {
         }
 
         static public void Log(string message) {
-            if (Application.platform != RuntimePlatform.OSXEditor) {
-                return;
-            }
-
+            if (Application.platform != RuntimePlatform.OSXEditor) return;
+            
             LogWithSkipFrames(3, message);
         }
 
         static public void Log(string format, params object[] args) {
+			if (Application.platform != RuntimePlatform.OSXEditor) return;
+			
             string message = string.Format(format, args);
             LogWithSkipFrames(3, message);
         }
+        
+		static public void Logln(params object[] args) {
+			if (Application.platform != RuntimePlatform.OSXEditor) return;
+		
+        	string message = "";
+			for (int i = 0; i < args.Length; i++) {
+				message += args.ToString() + " ";
+			}
+			
+			LogWithSkipFrames(3, message.Trim());
+        }
 
         static public void LogBreak(string message) {
+			if (Application.platform != RuntimePlatform.OSXEditor) return;
+        
             LogWithSkipFrames(3, message);
             UnityEngine.Debug.Break();
         }
 
         static public bool Alert(bool condition, string message) {
+			if (Application.platform != RuntimePlatform.OSXEditor) return false;
+        
             if (condition == true) {
                 string fullMsg = GetTraceStackName(2) + message;
-
                 UnityEngine.Debug.Log(fullMsg);
             }
 
@@ -59,6 +73,8 @@ static public partial class MZ {
         }
 
         static public void Assert(bool condition, string format, params object[] args) {
+			if (Application.platform != RuntimePlatform.OSXEditor) return;
+        
             string message = string.Format(format, args);
             AssertWithSkipFrames(3, condition, message);
         }
@@ -72,6 +88,8 @@ static public partial class MZ {
         }
 
         static public void AssertIfNullWithMessage(object testObject, string format, params object[] args) {
+			if (Application.platform != RuntimePlatform.OSXEditor) return;
+        
             string message = string.Format(format, args);
             AssertWithSkipFrames(3, testObject != null, message);
         }
@@ -80,14 +98,16 @@ static public partial class MZ {
             AssertWithSkipFrames(3, false, message);
         }
 
-    #region - Private
-
-        static void LogWithSkipFrames(int skipFrames, string message) {
+		static void LogWithSkipFrames(int skipFrames, string message) {
+			if (Application.platform != RuntimePlatform.OSXEditor) return;
+		
             string fullMsg = GetTraceStackName(skipFrames) + message;
             UnityEngine.Debug.Log(fullMsg);
         }
 
         static void AssertWithSkipFrames(int skipFrames, bool condition, string message) {
+			if (Application.platform != RuntimePlatform.OSXEditor) return;
+        
             if (condition == true) {
                 return;
             }
@@ -98,7 +118,5 @@ static public partial class MZ {
 
             throw new Exception();
         }
-
-    #endregion
     }
 }

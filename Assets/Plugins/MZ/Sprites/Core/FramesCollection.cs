@@ -64,7 +64,7 @@ static public partial class MZ {
 		}
 		
 		public FramesSet AddFramesWithShoeBoxName(string name) {
-			string path = MZ.Sprites.Editor.SPRITESHEETS_DIRECTORY_FULL_PATH + "/" + name;
+			string path = MZ.Sprites.SPRITESHEETS_DIRECTORY_IN_RESOURCES + "/" + name;
 			return AddFramesWithShoeBoxPathInResources(path);
 		}
 		

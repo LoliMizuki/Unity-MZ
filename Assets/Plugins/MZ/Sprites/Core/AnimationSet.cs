@@ -8,11 +8,6 @@ static public partial class MZ {
 
     public class AnimationSet {
 
-        public string name;
-        public string textureName;
-        public float oneLoopTime;
-		public MZ.Sprites.ShaderMode shaderMode;
-
 		// TODO: maybe go to spriteRender Control
 		static public Shader ShaderFromMode(MZ.Sprites.ShaderMode shaderMode) {
 			switch(shaderMode) {
@@ -23,6 +18,20 @@ static public partial class MZ {
 			default:
 				return Shader.Find("Sprites/Default");
 			}
+		}
+		
+		public string name;
+		public string textureName;
+		public float oneLoopTime;
+		public MZ.Sprites.ShaderMode shaderMode;
+		
+		static public AnimationSet New() {
+			AnimationSet newSet = new AnimationSet();
+			newSet.name = "";
+			newSet.textureName = "";
+			newSet.oneLoopTime = 0;
+			
+			return newSet;
 		}
 
 		public override string ToString() {
@@ -53,15 +62,6 @@ static public partial class MZ {
 
                 return FramesCollection.instance.framesSetByTextureName[textureName].texture;
             }
-        }
-
-        static public AnimationSet New() {
-            AnimationSet newSet = new AnimationSet();
-            newSet.name = "";
-            newSet.textureName = "";
-            newSet.oneLoopTime = 0;
-
-            return newSet;
         }
 
         static public AnimationSet AnimationSetWithParameters(string name, float oneLoopTime, string textureName, params string[] frameNames) {
@@ -150,7 +150,7 @@ static public partial class MZ {
             }
         }
     
-    #region private
+	    #region private
     
         List<FrameInfo> _frameInfos;
         float _interval;

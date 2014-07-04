@@ -3,7 +3,7 @@ using System.Collections;
 
 static public partial class MZ {
 
-    public interface IMZProjectTemplateDelgete {
+    public interface IProjectTemplateDelgete {
         string NewFilePath();
 
         string OpenPath();
@@ -19,7 +19,7 @@ static public partial class MZ {
     
     public class ProjectTemplate {
     
-        static public ProjectTemplate ProjectTemplateWithDelegate(IMZProjectTemplateDelgete projectManageDelgete) {
+        static public ProjectTemplate ProjectTemplateWithDelegate(IProjectTemplateDelgete projectManageDelgete) {
             ProjectTemplate projectManage = new ProjectTemplate();
     
             projectManage._currentProjectPath = null;
@@ -100,7 +100,7 @@ static public partial class MZ {
     
         #region - private 
     
-        IMZProjectTemplateDelgete _projectManageDelgete;
+        IProjectTemplateDelgete _projectManageDelgete;
         string _currentProjectPath;
     
         FileStream CreateEmptyFileWithPath(string path, bool close) {

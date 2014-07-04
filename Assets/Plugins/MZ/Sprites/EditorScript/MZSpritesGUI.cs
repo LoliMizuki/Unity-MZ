@@ -9,7 +9,7 @@ static public partial class MZ {
 	
 	static public partial class Sprites {
 
-		public class GUI {
+		public partial class GUI {
 			
 			static public Rect DrawFrameToRect(MZ.Sprites.FrameInfo frame, Rect rect, float offsetInnerBox, string title) {
 				UnityEngine.GUI.Box(rect, title);
