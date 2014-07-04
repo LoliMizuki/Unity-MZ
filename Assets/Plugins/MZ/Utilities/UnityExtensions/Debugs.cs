@@ -38,17 +38,6 @@ static public partial class MZ {
             string message = string.Format(format, args);
             LogWithSkipFrames(3, message);
         }
-        
-		static public void Logln(params object[] args) {
-			if (Application.platform != RuntimePlatform.OSXEditor) return;
-		
-        	string message = "";
-			for (int i = 0; i < args.Length; i++) {
-				message += args.ToString() + " ";
-			}
-			
-			LogWithSkipFrames(3, message.Trim());
-        }
 
         static public void LogBreak(string message) {
 			if (Application.platform != RuntimePlatform.OSXEditor) return;

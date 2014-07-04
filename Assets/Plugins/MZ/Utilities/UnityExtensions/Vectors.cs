@@ -122,12 +122,14 @@ public static class MZVectorsExtensions {
         return v.x == MZ.Vectors.INVALID_2.x && v.y == MZ.Vectors.INVALID_2.y;
     }
     
-    public static void ToInvalidButZ(this Vector3 v) {
+	public static Vector3 ToInvalidButZ(this Vector3 v) {
         v = MZ.Vectors.InvalidButZ(v.z);
+        return v;
     }
     
-    public static void ToInvalidAndZ(this Vector3 v, float z) {
-        v = new Vector3(v.x, v.y, z);
+	public static Vector3 ToInvalidSetZ(this Vector3 v, float z) {
+		v = new Vector3(MZ.Vectors.INVALID_2.x, MZ.Vectors.INVALID_2.y, z);
+		return v;
     }
     
     public static Vector2 ToVector2(this Vector3 v) {
