@@ -42,6 +42,7 @@ static public partial class MZ {
 		}
 		
 		public FramesSet FramesSetWithTextureName(string textureName) {
+			MZ.Debugs.Assert(framesSetByTextureName.ContainsKey(textureName), "can not found frames set with texture nam = " + textureName);
 			return framesSetByTextureName[textureName];
 		}
 		

@@ -62,7 +62,7 @@ public class MZAnimation : MonoBehaviour {
     }
 
     public void AddAnimationSet(string framesSetName, MZ.Sprites.AnimationSet animationSet) {
-        MZ.Debugs.AssertIfNullWithMessage(animationSet, "animation set is null");
+		MZ.Debugs.AssertIfNullWithMessage(animationSet, "animation set is null, framse-set = {0}", framesSetName);
         MZ.Debugs.Assert(animationsSetsByName.ContainsKey(framesSetName) == false, "duplicate frames set name({0})", framesSetName);
         animationsSetsByName.Add(framesSetName, animationSet);
     }
