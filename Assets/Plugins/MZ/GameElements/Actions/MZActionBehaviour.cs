@@ -20,11 +20,8 @@ public class MZActionBehaviour : MonoBehaviour {
 	void Update() {
 		if (_action == null) return;
 	
-		_action.Update();
+		if (_action.isActive) _action.Update();
 
-		if (!_action.isActive) {
-			_action.End();
-            _action = null;
-		}
+		if (!_action.isActive) _action.End();
 	}
 }

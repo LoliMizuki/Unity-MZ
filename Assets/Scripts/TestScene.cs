@@ -10,9 +10,14 @@ public class TestScene : MonoBehaviour {
 //		);
 
 
+		
+
+
 		cube.GetComponent<MZActionBehaviour>().Run(
 			MZ.Actions.Spawn(
-				MZ.Actions.MoveTo(new Vector3(0, 1, 0), 0.5f),
+				MZ.Actions.MoveEllipseFromTo(
+					180, 90, false, Vector2.zero, 4, 2, 1 
+				),		
 				
 				MZ.Actions.Sequence(
 					MZ.Actions.ColorFromTo(Color.white, Color.blue, 1.0f),
