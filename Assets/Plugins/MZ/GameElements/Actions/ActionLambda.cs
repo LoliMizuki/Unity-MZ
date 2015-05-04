@@ -4,7 +4,7 @@ using System.Collections;
 
 public static partial class MZ {
 
-	public partial class Action {
+	public partial class Actions {
 	
 	    public delegate void WithLambdaSignature(ActionLambda lambda);
 	
@@ -12,7 +12,7 @@ public static partial class MZ {
 	        return new ActionLambda(action);
 	    }
 	
-	    public class ActionLambda : Action {
+	    public class ActionLambda : ActionBase {
 	
 			public override bool isActive { get { return false; } }
 			

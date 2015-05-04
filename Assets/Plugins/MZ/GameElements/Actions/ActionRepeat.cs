@@ -4,42 +4,31 @@ using System.Collections;
 
 public static partial class MZ {
 
-	public partial class Action {
+	public partial class Actions {
 	
-	    public static ActionRepeat RepeatTimes(Action action, int times) {
-	        return new ActionRepeat(action, times);
+	    public static ActionRepeat RepeatTimes(ActionBase action, int times) {
+			return new ActionRepeat(action, times: times);
 	    }
 	
-		public static ActionRepeat RepeatForever(Action action) {
-			ActionRepeat a = new ActionRepeat(action, 0);
-			a.isForever = true;
-	
-			return a;
+		public static ActionRepeat RepeatForever(ActionBase action) {
+			return new ActionRepeat(action, isForever: true);
 		}
 	    
-	    public class ActionRepeat : Action {
+	    public class ActionRepeat : ActionBase {
 				
-			public bool isForever;
-	
-			public ActionRepeat(Action action, int times) {
+			public override bool isActive { get { return (_isForever)? true : _timesCount > 0; } }
+			
+			public ActionRepeat(ActionBase action, int times = 1, bool isForever = false) {
 				_times = times;
 	            _action = action;
 	
-				isForever = false;
+				_isForever = isForever;
 			}
-	
-	        public override bool isActive {
-	            get {
-					return (isForever)? true : _timesCount > 0;
-	            }
-	        }
 	
 			public override void Start() {
 				base.Start();
 				
-				if(!isForever) {
-					_timesCount = _times;
-				}
+				if (!_isForever) _timesCount = _times;
 	
 	            _action.gameObject = gameObject;
 	            _action.Start();
@@ -49,8 +38,9 @@ public static partial class MZ {
 	            base.Update();
 	            _action.Update();
 	
-	            if(!_action.isActive) {
-					if(!isForever) _timesCount--;
+	            if (!_action.isActive) {
+					if (!_isForever) _timesCount--;
+					
 	                _action.Start();
 	            }
 	        }
@@ -60,9 +50,15 @@ public static partial class MZ {
 	            _action.End();
 	        }
 	    
+	    
+	   
+			bool _isForever;
+	      
 			int _times;
+			
 	        int _timesCount;
-	        Action _action;
+	        
+	        ActionBase _action;
 		}
 	}
 }

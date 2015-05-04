@@ -7,28 +7,24 @@ public class MZActionBehaviour : MonoBehaviour {
 		_action = null;
 	}
 	
-	public void Run(MZ.Action action) {
+	public void Run(MZ.Actions.ActionBase action) {
 		_action = action;
         _action.gameObject = gameObject;
 		_action.Start();
 	}
 
-	#region - private
 
-	MZ.Action _action;
+
+	MZ.Actions.ActionBase _action;
 
 	void Update() {
-		if(_action == null) {
-			return;
-		}
-
+		if (_action == null) return;
+	
 		_action.Update();
 
-		if(!_action.isActive) {
+		if (!_action.isActive) {
 			_action.End();
             _action = null;
 		}
 	}
-
-	#endregion
 }

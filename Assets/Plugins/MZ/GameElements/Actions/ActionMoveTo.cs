@@ -4,13 +4,13 @@ using System.Collections;
 
 public static partial class MZ {
 
-	public partial class Action {
+	public partial class Actions {
 	
 	    public static ActionMoveTo MoveTo(Vector3 to, float duration) {
 	        return new ActionMoveTo(to, duration);
 	    }
 	
-	    public class ActionMoveTo : Action {
+	    public class ActionMoveTo : ActionBase {
 	
 	        public ActionMoveTo(Vector3 to, float duration) {
 	            _to = to;

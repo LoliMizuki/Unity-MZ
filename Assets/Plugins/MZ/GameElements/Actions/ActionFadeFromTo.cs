@@ -3,13 +3,13 @@ using System.Collections;
 
 public static partial class MZ {
 
-	public partial class Action {
+	public partial class Actions {
 	
 		public static ActionFadeFromTo FadeFromTo(int from, int to, float duration) {
 			return new ActionFadeFromTo((float)from / 255.0f, (float)to / 255.0f, duration);
 		}
 	
-		public class ActionFadeFromTo : Action {
+		public class ActionFadeFromTo : ActionBase {
 	
 			public ActionFadeFromTo(float from, float to, float duration) {
 				_from = from;

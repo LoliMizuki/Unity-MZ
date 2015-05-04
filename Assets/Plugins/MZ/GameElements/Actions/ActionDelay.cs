@@ -3,25 +3,19 @@ using System.Collections;
 
 public static partial class MZ {
 	
-	public partial class Action {
+	public partial class Actions {
 	
 	    public static ActionDelay Delay(float time) {
 	        return new ActionDelay(time);
 	    }
 	
-	    public class ActionDelay : Action {
+	    public class ActionDelay : ActionBase {
 	       
-	        float _time;
-	
+			public override bool isActive { get { return passedTime < this.duration; } }
+			
 	        public ActionDelay(float time) {
-	            _time = time;
+	            this.duration = time;
 	        }
-	
-			public override bool isActive {
-				get {
-					return passedTime < _time; 
-				}
-			}
 	    }
 	}
 }

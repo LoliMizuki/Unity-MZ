@@ -1,20 +1,20 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public static partial class MZ {
 
-	public partial class Action {
+	public partial class Actions {
     
         public static ActionVelAcc VelocityAndAcceleration(Vector3 velocity, Vector3 acceleration, float duration) {
             return new ActionVelAcc(velocity, acceleration, duration);
         }  
 	
-		public class ActionVelAcc : Action {
+		public class ActionVelAcc : ActionBase {
         
             public ActionVelAcc(Vector3 velocity, Vector3 acceleration, float duration) {
                 this.duration = duration;
                 _velocity = velocity;
-                _acceleration = acceleration;
+				_acceleration = acceleration;
             }
             
             public override bool isActive { get { return passedTime < duration; } }
@@ -48,15 +48,14 @@ public static partial class MZ {
                     _initPosition.z + (_velocity.z * passedTime) + ((_acceleration.z * passTimePow2) / 2.0f)
                 );
             }
-		}
-        
-        #region - private
-        
-        Vector3 _initPosition;
-        Vector3 _velocity;
-        Vector3 _acceleration;
-        
-        #endregion
+            
+            
+	    
+	        Vector3 _initPosition;
+	        
+	        Vector3 _velocity;
+	        
+	        Vector3 _acceleration;
+        }
 	}
-
 }

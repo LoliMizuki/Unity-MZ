@@ -4,23 +4,21 @@ using System.Collections.Generic;
 
 public static partial class MZ {
 
-	public partial class Action {
+	public partial class Actions {
 	
-		public static ActionSpawn Spawn(params Action[] actions) {
+		public static ActionSpawn Spawn(params ActionBase[] actions) {
 			return new ActionSpawn(actions);
 		}
 	
-		public class ActionSpawn : Action {
+		public class ActionSpawn : ActionBase {
 	
-			public ActionSpawn(params Action[] actions) {
-				_actions = new List<Action>(actions);
+			public ActionSpawn(params ActionBase[] actions) {
+				_actions = new List<ActionBase>(actions);
 			}
 	
 			public override bool isActive {
 				get {
-					foreach(Action a in _actions) {
-						if(a.isActive) return true;
-					}
+					foreach (ActionBase a in _actions) if (a.isActive) return true;
 					return false;
 				}
 			}
@@ -44,7 +42,7 @@ public static partial class MZ {
 				base.End();
 			}
 	
-			List<Action> _actions;
+			List<ActionBase> _actions;
 		}
 	}
 }

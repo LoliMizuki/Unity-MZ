@@ -4,13 +4,13 @@ using System.Collections;
 
 public static partial class MZ {
 	
-	public partial class Action {
+	public partial class Actions {
 	
 	    public static ActionColorFromTo ColorFromTo(Color from, Color to, float duration) {
 	        return new ActionColorFromTo(from, to, duration);
 	    }
 	
-		public class ActionColorFromTo : Action {
+		public class ActionColorFromTo : ActionBase {
 	
 			public ActionColorFromTo(Color from, Color to, float duration) {
 				_from = from;
@@ -41,8 +41,12 @@ public static partial class MZ {
 	            base.End();
 	        }
 	
+	
+	
 			Color _from;
+			
 			Color _to;
+			
 	        Color _diff;
 		}
 	}

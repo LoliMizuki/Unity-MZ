@@ -8,13 +8,13 @@ using System.Collections;
 
 public static partial class MZ {
 
-	public partial class Action {
+	public partial class Actions {
 	
 	    public static ActionEllipse EllipseFromTo(float fromDeg, float toDeg, bool isCCW, Vector2 center, float a, float b, float duration) {
 	        return new ActionEllipse(fromDeg, toDeg, isCCW, center, a, b, duration);
 	    }
 	
-	    public class ActionEllipse : Action {
+	    public class ActionEllipse : ActionBase {
 	       
 			public ActionEllipse(float fromDeg, float toDeg, bool isCCW, Vector2 center, float a, float b, float duration) {
 				this.duration = duration;

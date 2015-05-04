@@ -4,7 +4,7 @@ using System.Collections;
 
 public static partial class MZ {
 
-	public partial class Action {
+	public partial class Actions {
 	
 	    public delegate void LambdaTimeSignature(ActionLambdaWithTime lambdaTime, float deltaTime, float passedTime);
 	
@@ -12,7 +12,7 @@ public static partial class MZ {
 	        return new ActionLambdaWithTime(action, duration);
 	    }
 	
-		public class ActionLambdaWithTime : Action {
+		public class ActionLambdaWithTime : ActionBase {
 	
 	        public override bool isActive {
 	            get {

@@ -1,4 +1,4 @@
-﻿// Simple now
+// Simple now
 // Ignore "rotation direction"(clockwise or counterclockwise)
 
 using UnityEngine;
@@ -6,7 +6,7 @@ using System.Collections;
 
 public static partial class MZ {
 
-    public partial class Action {
+	public partial class Actions {
     
         public static ActionRotateFromTo RotateFromTo(Vector3 from, Vector3 to, float duration) {
             return new ActionRotateFromTo(from, to, duration);
@@ -19,7 +19,7 @@ public static partial class MZ {
             return new ActionRotateFromTo(from3, to3, duration);
         }
     
-        public class ActionRotateFromTo : MZ.Action {
+        public class ActionRotateFromTo : ActionBase {
         
             public Vector3 from;
             public Vector3 to;
