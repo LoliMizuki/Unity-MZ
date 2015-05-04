@@ -14,14 +14,10 @@ static public partial class MZ {
 	
 	    public class ActionLambda : Action {
 	
+			public override bool isActive { get { return false; } }
+			
 	        public ActionLambda(WithLambdaSignature action) {
 	            _action = action;
-	        }
-	
-	        public override bool isActive {
-	            get {
-	                return false;
-	            }
 	        }
 	
 	        public override void End() {

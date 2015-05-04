@@ -20,14 +20,14 @@ static public partial class MZ {
 	
 			public override void Start() {
 	            _diff = new Color(_to.r - _from.r, _to.g - _from.g, _to.b - _from.b);
-	            gameObject.renderer.material.color = _from;
+	            gameObject.GetComponent<Renderer>().material.color = _from;
 				base.Start();
 			}
 	
 	        public override void Update() {
 	            float lerp = MZ.Maths.Lerp(passedTime, duration);
 	
-	            gameObject.renderer.material.color = new Color(
+	            gameObject.GetComponent<Renderer>().material.color = new Color(
 					_from.r + (_diff.r * lerp),
 	                _from.g + (_diff.g * lerp),
 					_from.b + (_diff.b * lerp)
@@ -37,7 +37,7 @@ static public partial class MZ {
 	        }
 	
 	        public override void End() {
-	            gameObject.renderer.material.color = _to;
+	            gameObject.GetComponent<Renderer>().material.color = _to;
 	            base.End();
 	        }
 	

@@ -99,7 +99,7 @@ public class FastRuntimeSpritesheetMain : MonoBehaviour {
 		GameObject go1 = new GameObject("create");
 		go1.AddComponent<SpriteRenderer>().sprite = frss.frameInfos[0].sprite;
 		go1.transform.position = new Vector3(0, 0, -50);
-		go1.renderer.material.color = new Color(1, 1, 1, 0.5f);
+		go1.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 0.5f);
 		
 		string name = frss.frameInfos[0].name;
 		Texture2D originTex = Resources.Load<Texture2D>("pot/" + name);

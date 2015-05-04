@@ -12,6 +12,37 @@ static public partial class MZ {
         static public Vector3 InvalidButZ(float z) {
             return new Vector3(INVALID_2.x, INVALID_2.y, z);
         }
+        
+		static public float Dot(Vector2 p1, Vector2 p2) {
+			return (p1.x*p2.x) + (p1.y*p2.y);
+		}
+        
+		static public float DistanceV2FromV3(Vector3 p1, Vector3 p2) {
+			return Mathf.Sqrt(Maths.DistanceV2Pow2FromV3(p1, p2));
+		}
+		
+		static public float LengthOfVector(Vector2 vector) {
+			return Mathf.Sqrt(vector.x*vector.x + vector.y*vector.y);
+		}
+		
+		static public Vector2 UnitVectorV2FromP1ToP2(Vector2 p1, Vector2 p2) {
+			float diffY = p2.y - p1.y;
+			float diffX = p2.x - p1.x;
+			
+			if (diffY == 0) {
+				if (diffX > 0) {
+					return new Vector2(1, 0);
+				} else if (diffX < 0) {
+					return new Vector2(-1, 0);
+				} else {
+					return Vector2.zero;
+				}
+			}
+			
+			float length = Mathf.Sqrt(Mathf.Pow(diffX, 2) + Mathf.Pow(diffY, 2));
+			
+			return new Vector2(diffX/length, diffY/length);
+		}
 
         static public Vector2 Vector2FromVector3(Vector3 vector3) {
             return new Vector2(vector3.x, vector3.y);
@@ -75,6 +106,43 @@ static public partial class MZ {
             bool success;
             return Vector3FromString(posStr, out success);
         }
+        
+		static public Vector2 UnitVectorFromVectorAddDegree(Vector2 vector, float degrees) {
+			float radians = Degrees.RadiansFromDegrees(degrees);
+			
+			float c = Mathf.Cos(radians);
+			float s = Mathf.Sin(radians);
+			
+			Vector2 resultVetor = new Vector2(vector.x*c - vector.y*s, vector.x*s + vector.y*c);
+			Vector2 unitResultVetor = UnitVectorFromVector(resultVetor);
+			
+			return unitResultVetor;
+		}
+		
+		static public Vector2 UnitVectorV2FromV3P1ToP2IgnoreZ(Vector3 p1, Vector3 p2) {
+			return UnitVectorV2FromP1ToP2(new Vector2(p1.x, p1.y), new Vector2(p2.x, p2.y));
+		}
+		
+		static public Vector2 UnitVectorFromVector(Vector2 vector) {
+			float length = LengthOfVector(vector);
+			return new Vector2(vector.x/length, vector.y/length);
+		}
+		
+		static public Vector2 UnitVectorFromVectorAddDegree(float degrees) {
+			return UnitVectorFromVectorAddDegree(new Vector2(1, 0), degrees);
+		}
+		
+		static public Vector2 UnitVectorFromDegrees(float degrees) {
+			float degrees_ = ((int)degrees)%360;
+			
+			if (degrees_ == 90) return new Vector2(0, 1);
+			if (degrees_ == 270) return new Vector2(0, -1);
+			if (degrees_ == 0) return new Vector2(1, 0);
+			if (degrees_ == 180) return new Vector2(-1, 0);
+			
+			float radians = Degrees.RadiansFromDegrees(degrees);
+			return new Vector2(Mathf.Cos(radians), Mathf.Sin(radians));
+		}
     }    
 }
 

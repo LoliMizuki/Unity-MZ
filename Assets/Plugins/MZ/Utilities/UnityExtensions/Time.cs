@@ -34,8 +34,11 @@ static public partial class MZ {
         }
 
 		static MZ.Time _instance;
+        
         UpdateMode _updateMode;
+        
         Func<float> _stepTimeFunc;
+        
         float _fixedDeltaTimeOfFrameBaseMode;
 
         void SetUpdateMode(UpdateMode updateMode) {
@@ -56,6 +59,5 @@ static public partial class MZ {
         }
 
        #endregion
-
     }
 }

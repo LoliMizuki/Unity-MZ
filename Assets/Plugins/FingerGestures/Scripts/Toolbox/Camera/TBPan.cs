@@ -34,13 +34,27 @@ public class TBPan : MonoBehaviour
         }
     }
 
+	int FingerCount()
+	{
+		var fingerCount = 0;
+		foreach (Touch touch  in Input.touches) {
+			if (touch.phase != TouchPhase.Ended && touch.phase != TouchPhase.Canceled)
+				fingerCount++;
+		}
+		return fingerCount;
+
+	}
+
     void OnDrag( DragGesture gesture )
     {
+		if(FingerCount()>1)return;
+
         dragGesture = ( gesture.State == GestureRecognitionState.Ended ) ? null : gesture;
     }
 
     void Update()
     {
+
         if( dragGesture != null )
         {
             if( dragGesture.DeltaMove.SqrMagnitude() > 0 )

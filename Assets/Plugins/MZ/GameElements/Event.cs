@@ -6,53 +6,46 @@ static public partial class MZ {
 
 	public class Event {
 	
+		public string name = "";
+	
 		public Func<Event, bool> activeFunc;
-		public Action<Event> resetAction;
+		
 		public Action<Event> startAction;
+		
 		public Action<Event> updateAction;
+		
 		public Action<Event> endAction;
 	
-		public float passedTime {
-			get { return _passedTime; } internal set { _passedTime = value; } 
-		}
-		float _passedTime;
+		public float passedTime { get; internal set; }
 		
-		public virtual bool isActive {
-			get { return (activeFunc != null)? activeFunc(this) : true; }
-		}
-	
+		public virtual bool isActive { get { return (activeFunc != null)? activeFunc(this) : true; } }
+		
 		public Event() {
-			Reset();
-		}
-		
-		public virtual void Reset() {
-			passedTime = 0;
-	
-			if(resetAction != null) {
-				resetAction(this);
-			}
 		}
 	
 		public virtual void Start() {
-			Reset();
-	
+			passedTime = 0;
+			
 			if(startAction != null) {
 				startAction(this);
 			}
 		}
 	
 		public virtual void Update() {
-			if(updateAction != null) {
-				updateAction(this);
-			}
-	
-			passedTime += UnityEngine.Time.deltaTime;
+			if (isActive) UpdateWhenActive();
 		}
 	
 		public virtual void End() {
-			if(endAction != null) {
-				endAction(this);
-			}
+			if(endAction != null) endAction(this);
+		}
+		
+		public virtual void DrawGizmos() {}
+		
+		protected virtual void UpdateWhenActive() {
+			passedTime += UnityEngine.Time.deltaTime;
+			
+			if(updateAction != null) updateAction(this);
 		}
 	}
 }
+

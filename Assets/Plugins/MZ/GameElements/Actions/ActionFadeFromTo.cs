@@ -25,15 +25,15 @@ static public partial class MZ {
 				float diff = _to - _from;
 	            float currLerp = MZ.Maths.Lerp(passedTime, duration);
 	
-				Color c = gameObject.renderer.material.color;
-				gameObject.renderer.material.color = new Color(c.r, c.g, c.b, _from + diff * currLerp);
+				Color c = gameObject.GetComponent<Renderer>().material.color;
+				gameObject.GetComponent<Renderer>().material.color = new Color(c.r, c.g, c.b, _from + diff * currLerp);
 	
 				base.Update();
 			}
 	
 			public override void End() {
-				Color c = gameObject.renderer.material.color;
-				gameObject.renderer.material.color = new Color(c.r, c.g, c.b, _to);
+				Color c = gameObject.GetComponent<Renderer>().material.color;
+				gameObject.GetComponent<Renderer>().material.color = new Color(c.r, c.g, c.b, _to);
 			
 				base.End ();
 			}

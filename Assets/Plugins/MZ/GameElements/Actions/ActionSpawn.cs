@@ -26,7 +26,7 @@ static public partial class MZ {
 			}
 	
 			public override void Start() {
-				MapReduce.Map(_actions, (a) => {
+				MapReduce.MapToList(_actions, (a) => {
 	                a.deltaTimeFunc = deltaTimeFunc;
 	                a.gameObject = this.gameObject;
 					a.Start();
@@ -35,12 +35,12 @@ static public partial class MZ {
 			}
 	
 			public override void Update() {
-				MapReduce.Map(_actions, (a) => a.Update());
+				MapReduce.MapToList(_actions, (a) => a.Update());
 				base.Update();
 			}
 	
 			public override void End() {
-				MapReduce.Map(_actions, (a) => a.End());
+				MapReduce.MapToList(_actions, (a) => a.End());
 				base.End();
 			}
 	

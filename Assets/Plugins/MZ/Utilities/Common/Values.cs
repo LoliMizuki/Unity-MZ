@@ -13,6 +13,7 @@ static public partial class MZ {
             { typeof(bool), false },
             { typeof(Vector2), Vector2.zero },
             { typeof(Vector3), Vector3.zero },
+            { typeof(Rect), new Rect(0,0,0,0) },
         };
         
         static public Dictionary<Type, Func<object, object>> convertFuncByType = new Dictionary<Type, Func<object, object>> {
@@ -55,13 +56,18 @@ static public partial class MZ {
                     MZ.Debugs.Assert(success, "convert fail: from " + obj.ToString() + " to vector3");
                     return result;
                 }},
-    
+                
+        	{typeof(Rect), (obj) => {
+					return MZ.Rects.RectFromString(obj.ToString());
+        		}},
         };
     
         static public T DefaultValue<T>() {
-            MZ.Debugs.Assert(defaultValueByType.ContainsKey(typeof(T)), "can not default valune of this type(" + 
-                typeof(T).ToString() +
-                "), please define it first");
+            MZ.Debugs.Assert(
+            	defaultValueByType.ContainsKey(
+	            	typeof(T)), 
+	            	"can not default valune of this type(" + typeof(T).ToString() + "), please define it first"
+    		);
             return (T)defaultValueByType[typeof(T)];
         }
 

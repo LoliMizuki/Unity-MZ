@@ -1,9 +1,18 @@
-﻿#if UNITY_EDITOR
-
-using UnityEngine;
-using UnityEditor;
+﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+static public partial class MZ {
+    public interface IInspector {
+		bool InspectorLayout(int deep = 0);
+    }
+}
+
+#if UNITY_EDITOR
 
 static public partial class MZ {
 
@@ -33,7 +42,7 @@ static public partial class MZ {
     
             bool hasLabel = MZ.Verifiers.String(label);
             
-            if(t == typeof(int)) {
+            if(t == typeof(int) || t == typeof(uint)) {
                 string strValue = (preValue != null)? preValue.ToString() : "0";
                 newValue = (hasLabel)? EditorGUILayout.IntField(label, int.Parse(strValue)) : EditorGUILayout.IntField(int.Parse(strValue));
             } else if(t == typeof(float)) {
@@ -69,6 +78,10 @@ static public partial class MZ {
             return newValue;
         }
         
+        static public T LayoutFieldWithObjectValue<T>(string label, int deep, object preValue) where T: IConvertible {
+            return LayoutFieldWithObjectValue<T>(EditorGUI.TextLabelWithIndentDeep(label, deep), preValue);
+        }
+        
         static public T LayoutFieldWithObjectValueInDict<T>(string label, int deep, string key, Dictionary<string, object> dict) where T: IConvertible {
             return LayoutFieldWithObjectValueInDict<T>(EditorGUI.TextLabelWithIndentDeep(label, deep), key, dict);
         }
@@ -90,7 +103,7 @@ static public partial class MZ {
             return TextLabelWithIndentDeep(label, "|- ", deep);
         }
         
-        static public void LayoutLabelWithDeep(string label, int deep) {
+        static public void LayoutLabelWithDeep(string label, int deep = 0) {
             EditorGUILayout.LabelField(EditorGUI.TextLabelWithIndentDeep(label, deep));
         }
     

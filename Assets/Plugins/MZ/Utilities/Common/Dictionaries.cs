@@ -26,7 +26,7 @@ static public partial class MZ {
 
         static public T ValueFromDictWithKey<T>(Dictionary<string, object> dict, string key) {
             if (!dict.ContainsKey(key)) {
-                SetValueToDict<T>(dict, key, Values.DefaultValue<T>());
+				SetValueToDict<T>(dict, key, Values.DefaultValue<T>());
             }
         
             return (T)Values.ValueFormObject<T>(dict[key]);

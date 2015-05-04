@@ -28,12 +28,12 @@ public class MZAnimation : MonoBehaviour {
             _shaderMode = value;
             switch(_shaderMode) {
             case MZ.Sprites.ShaderMode.Additive:
-                gameObject.renderer.material = MZ.Sprites.SharedResources.instance.additiveMaterial;
+                gameObject.GetComponent<Renderer>().material = MZ.Sprites.SharedResources.instance.additiveMaterial;
                 break;
                     
             case MZ.Sprites.ShaderMode.Default:
             default:
-                gameObject.renderer.material = gameObject.renderer.sharedMaterial;
+                gameObject.GetComponent<Renderer>().material = gameObject.GetComponent<Renderer>().sharedMaterial;
                 break;
             }
         }

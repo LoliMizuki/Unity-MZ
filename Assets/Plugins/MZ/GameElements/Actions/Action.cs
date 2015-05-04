@@ -8,30 +8,27 @@ static public partial class MZ {
 	
 		public float deltaTime {
 			get {
-				if(deltaTimeFunc == null) {
-					deltaTimeFunc = () => { return UnityEngine.Time.deltaTime; };
-				}
+				if(deltaTimeFunc == null) { deltaTimeFunc = () => { return UnityEngine.Time.deltaTime; }; }
 				return deltaTimeFunc();
 			}
 		}
 	
-		public float passedTime {
-			get {
-				return _passedTime;
-			}
-			internal set {
-				_passedTime = value;
-			}
-		}
-		float _passedTime;
+		public float passedTime { get; protected set; }
 		
 		public Func<float> deltaTimeFunc;
+		
 		public Func<Action, bool> activeFunc;
-	    public Action<Action> resetAction;
+		
+		public Action<Action> resetAction;
+		
 		public Action<Action> startAction;
+		
 		public Action<Action> endAction;
+		
 		public Action<Action> updateAction;
+		
 		public GameObject gameObject;
+		
 	    public float duration;
 	
 		public virtual bool isActive {
@@ -42,38 +39,24 @@ static public partial class MZ {
 	
 	    public Action() {
 	    }
-	
-	    public virtual void Reset() {
-	        if(resetAction != null) {
-	            resetAction(this);
-	        }
-	
-	        passedTime = 0;
-	    }
+	    
+		public virtual void Reset() {
+			if(resetAction != null) resetAction(this);
+			passedTime = 0;
+		}
 	
 		public virtual void Start() {
-	        Reset();
-	
-	        if(startAction != null) {
-	            startAction(this);
-	        }
+	     	Reset();
+	        if(startAction != null) startAction(this);
 		}
 	
 	    public virtual void End() {
-			if(endAction != null) {
-				endAction(this);
-			}
+			if(endAction != null) endAction(this);
 		}
 		
 		public virtual void Update() {
-			if(updateAction != null) {
-				updateAction(this);
-			}
-			
+			if(updateAction != null) updateAction(this);
 			passedTime += deltaTime;
 		}
-		
-		#region - private
-		#endregion
 	}
 }

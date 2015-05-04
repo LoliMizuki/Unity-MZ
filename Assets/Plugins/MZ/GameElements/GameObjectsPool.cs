@@ -6,10 +6,11 @@ static public partial class MZ {
 
 	public class GameObjectsPool {
 	
-		static public GameObjectsPool NewPool(int number,
-		                                        Func<GameObject> gameObjectCreateFunc,
-												Action<GameObject> onGetAction,
-		                                        Action<GameObject> onReturnAction) {
+		static public GameObjectsPool NewPool(
+			int number,
+	        Func<GameObject> gameObjectCreateFunc,
+			Action<GameObject> onGetAction,
+	        Action<GameObject> onReturnAction) {
 			MZ.Debugs.AssertIfNullWithMessage(gameObjectCreateFunc, "game-object create function can not be null");
 	
 			GameObjectsPool pool = new GameObjectsPool();

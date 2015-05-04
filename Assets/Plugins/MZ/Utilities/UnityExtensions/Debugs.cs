@@ -49,7 +49,7 @@ static public partial class MZ {
         static public bool Alert(bool condition, string message) {
 			if (Application.platform != RuntimePlatform.OSXEditor) return false;
         
-            if (condition == true) {
+            if (!condition) {
                 string fullMsg = GetTraceStackName(2) + message;
                 UnityEngine.Debug.Log(fullMsg);
             }

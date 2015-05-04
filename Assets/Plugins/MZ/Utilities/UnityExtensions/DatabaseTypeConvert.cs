@@ -79,7 +79,7 @@ static public partial class MZ {
         }
     
         static public Color ColorFromDBValue(object dbValue) {
-            string temp = dbValue.ToString();
+            string temp = dbValue.ToString().Replace("RGBA", "");
             temp = temp.Replace( "(", "" );
             temp = temp.Replace( ")", "" );
     

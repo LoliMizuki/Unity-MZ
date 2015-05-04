@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 
 // (x - h)^2/(a^2) + (y - k)^2/(b^2) = 1, (h,k) is center, a, b is radius
@@ -16,25 +17,21 @@ static public partial class MZ {
 	    public class ActionEllipse : Action {
 	       
 			public ActionEllipse(float fromDeg, float toDeg, bool isCCW, Vector2 center, float a, float b, float duration) {
+				this.duration = duration;
+				
 				_fromDeg = fromDeg;
 				_toDeg = toDeg;
 				_isCCW = isCCW;
 				_center = center;
 				_a = a;
 				_b = b;
-				_duration = duration;
 	
 	            _fixedToDeg = _toDeg;
-	            if(_isCCW && _toDeg <= _fromDeg) {
-	                _fixedToDeg += 360;
-	            }
-	
-	            if(!_isCCW && _toDeg >= _fromDeg) {
-	                _fixedToDeg -= 360;
-	            }
+	            if(_isCCW && _toDeg <= _fromDeg) _fixedToDeg += 360;
+				if(!_isCCW && _toDeg >= _fromDeg) _fixedToDeg -= 360;
 			}
 	
-			public override bool isActive { get { return passedTime < _duration; } }
+			public override bool isActive { get { return passedTime < duration; } }
 	
 			public override void Start() {
 	            base.Start();
@@ -43,28 +40,33 @@ static public partial class MZ {
 			}
 	
 	        public override void Update() {
-	            float lerp = MZ.Maths.Lerp(passedTime, _duration);
-	            float currDeg = _fromDeg + ((_fixedToDeg - _fromDeg) * lerp);
-	
-	            gameObject.transform.localPosition = PoisitionFromDegrees(currDeg);
-	
-	            base.Update();
+				base.Update();
+				
+				float progress = MZ.Maths.Lerp(passedTime, duration);
+				float currDeg = _fromDeg + ((_fixedToDeg - _fromDeg) * progress);
+				gameObject.transform.localPosition = PoisitionFromDegrees(currDeg);	
 	        }
 	
 	        public override void End() {
 	            gameObject.transform.localPosition = PoisitionFromDegrees(_toDeg);
 	            base.End();
 	        }
+	       
+	       
 	
 			float _fromDeg;
+			
 			float _toDeg;
+	        
 	        float _fixedToDeg;
 	
 			bool _isCCW;
+			
 			Vector2 _center;
+			
 			float _a;
+			
 			float _b;
-			float _duration;
 	
 			float _backupZ;
 	
@@ -75,7 +77,7 @@ static public partial class MZ {
 	            if(_deg == 90) return new Vector3(_center.x, _center.y + _b, _backupZ);
 	            if(_deg == 270) return new Vector3(_center.x, _center.y - _b, _backupZ);
 	        
-	            float ang = MZ.Maths.RadiansFromDegrees(_deg);
+	            float ang = MZ.Degrees.RadiansFromDegrees(_deg);
 	
 	            float x = _center.x + (_a * Mathf.Cos(ang));
 	            float y = _center.y + (_b * Mathf.Sin(ang));
