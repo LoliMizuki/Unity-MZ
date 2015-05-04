@@ -5,13 +5,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-static public partial class MZ {
+public static partial class MZ {
 	
-	static public partial class Sprites {
+	public static partial class Sprites {
 	
 	public class FramesCollection {
 		
-		static public FramesCollection instance {
+		public static FramesCollection instance {
 			get {
 				if(_instance == null) {
 					_instance = new FramesCollection();

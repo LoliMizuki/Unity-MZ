@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-static public partial class MZ {
+public static partial class MZ {
 	
-	static public partial class Sprites {
+	public static partial class Sprites {
 
 		public class SharedResources {
 	
-			static public SharedResources instance {
+			public static SharedResources instance {
 				get {
 					if(_instance == null) {
 						_instance = new SharedResources();

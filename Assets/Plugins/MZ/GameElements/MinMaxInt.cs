@@ -2,11 +2,11 @@
 using System;
 using System.Collections.Generic;
 
-static public partial class MZ {
+public static partial class MZ {
 
 	public class MinMaxInt {
 	
-		static public int IntValueFromMinMaxAndLevel(int min, int max, int currLevel, int maxLevel) {
+		public static int IntValueFromMinMaxAndLevel(int min, int max, int currLevel, int maxLevel) {
 			MZ.Debugs.Assert(min <= max, "max{0} can not less than min{1}", max, min);
 		
 			if(currLevel == 0 || maxLevel == 0) return 0;
@@ -19,7 +19,7 @@ static public partial class MZ {
 			return min + (int)(interval*(currLevel - 1));
 		}
 		
-		static public float IntervalFromMinMaxAndMaxLevel(int min, int max, int maxLevel) {
+		public static float IntervalFromMinMaxAndMaxLevel(int min, int max, int maxLevel) {
 			return (float)(max - min)/(maxLevel - 1);
 		}
 	

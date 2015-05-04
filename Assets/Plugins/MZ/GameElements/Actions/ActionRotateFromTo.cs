@@ -4,15 +4,15 @@
 using UnityEngine;
 using System.Collections;
 
-static public partial class MZ {
+public static partial class MZ {
 
     public partial class Action {
     
-        static public ActionRotateFromTo RotateFromTo(Vector3 from, Vector3 to, float duration) {
+        public static ActionRotateFromTo RotateFromTo(Vector3 from, Vector3 to, float duration) {
             return new ActionRotateFromTo(from, to, duration);
         }
         
-        static public ActionRotateFromTo RotateAtZFromTo(float from, float to, float duration) {
+        public static ActionRotateFromTo RotateAtZFromTo(float from, float to, float duration) {
             Vector3 from3 = new Vector3(0, 0, from);
             Vector3 to3 = new Vector3(0, 0, to);
         

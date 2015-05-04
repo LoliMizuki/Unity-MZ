@@ -6,11 +6,11 @@ using System.Collections;
 // x = h + a*cos(theta)
 // y = k + b*cos(theta)
 
-static public partial class MZ {
+public static partial class MZ {
 
 	public partial class Action {
 	
-	    static public ActionEllipse EllipseFromTo(float fromDeg, float toDeg, bool isCCW, Vector2 center, float a, float b, float duration) {
+	    public static ActionEllipse EllipseFromTo(float fromDeg, float toDeg, bool isCCW, Vector2 center, float a, float b, float duration) {
 	        return new ActionEllipse(fromDeg, toDeg, isCCW, center, a, b, duration);
 	    }
 	

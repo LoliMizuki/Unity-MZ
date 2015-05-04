@@ -2,11 +2,11 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-static public partial class MZ {
+public static partial class MZ {
 	
 	public partial class Action {
 	
-	    static public ActionColorFromTo ColorFromTo(Color from, Color to, float duration) {
+	    public static ActionColorFromTo ColorFromTo(Color from, Color to, float duration) {
 	        return new ActionColorFromTo(from, to, duration);
 	    }
 	

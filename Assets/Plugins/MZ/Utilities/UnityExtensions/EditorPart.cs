@@ -7,7 +7,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-static public partial class MZ {
+public static partial class MZ {
 
     public interface IEditorPart<T> {
         T editor { get; }

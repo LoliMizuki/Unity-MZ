@@ -2,13 +2,13 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-static public partial class MZ {
+public static partial class MZ {
 
 	public partial class Action {
 	
 	    public delegate void WithLambdaSignature(ActionLambda lambda);
 	
-	    static public ActionLambda Lambda(WithLambdaSignature action) {
+	    public static ActionLambda Lambda(WithLambdaSignature action) {
 	        return new ActionLambda(action);
 	    }
 	

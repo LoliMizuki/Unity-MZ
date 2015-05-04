@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 
-static public partial class MZ {
+public static partial class MZ {
 
     public class Collections {
 
-        static public List<string> KeysListFromDict<K, V>(Dictionary<K, V> dict) {
+        public static List<string> KeysListFromDict<K, V>(Dictionary<K, V> dict) {
             List<string> keys = new List<string>();
 
             foreach (K k in dict.Keys) {
@@ -14,15 +14,15 @@ static public partial class MZ {
             return keys;
         }
 
-        static public void PrintKeysInDict<K,V>(Dictionary<K,V> dict) {
+        public static void PrintKeysInDict<K,V>(Dictionary<K,V> dict) {
             MZ.Debugs.Log(KeysStringInDict(dict));
         }
 
-        static public void PrintKeysInDictWithMessage<K,V>(string message, Dictionary<K,V> dict) {
+        public static void PrintKeysInDictWithMessage<K,V>(string message, Dictionary<K,V> dict) {
             MZ.Debugs.Log(message + ": " + KeysStringInDict(dict));
         }
 
-        static public string KeysStringInDict<K, V>(Dictionary<K, V> dict) {
+        public static string KeysStringInDict<K, V>(Dictionary<K, V> dict) {
             string allKeys = "";
             foreach (K key in dict.Keys) {
                 allKeys += key.ToString() + ", ";
@@ -31,7 +31,7 @@ static public partial class MZ {
             return ForamtListString(allKeys, "[", "]");
         }
 
-        static public void PrintKeysAndValuesInDict<K,V>(Dictionary<K,V> dict) {
+        public static void PrintKeysAndValuesInDict<K,V>(Dictionary<K,V> dict) {
             string allKVStr = "";
             foreach (K key in dict.Keys) {
                 allKVStr += key.ToString() + ": " + dict[key].ToString() + ", ";
@@ -39,7 +39,7 @@ static public partial class MZ {
             MZ.Debugs.Log(ForamtListString(allKVStr, "[", "]"));
         }
 
-        static public void DictSetKeyValue(Dictionary<string, object> dict, string key, object value) {
+        public static void DictSetKeyValue(Dictionary<string, object> dict, string key, object value) {
             if (dict == null) {
                 dict = new Dictionary<string, object>();
             }
@@ -52,11 +52,11 @@ static public partial class MZ {
             dict[key] = value;
         }
 
-        static public void PrintElemnetsInList<T>(List<T> list) {
+        public static void PrintElemnetsInList<T>(List<T> list) {
             MZ.Debugs.Log(ElemnetsStringInList<T>(list));
         }
 
-        static public string ElemnetsStringInList<T>(List<T> list) { 
+        public static string ElemnetsStringInList<T>(List<T> list) { 
             string s = "";
             foreach (T e in list) {
                 s += e.ToString() + ",";

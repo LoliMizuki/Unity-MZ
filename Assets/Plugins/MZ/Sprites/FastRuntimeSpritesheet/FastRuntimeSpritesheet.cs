@@ -3,19 +3,19 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
-static public partial class MZ {
+public static partial class MZ {
 
-	static public partial class Sprites {
+	public static partial class Sprites {
 
 		public class FastRuntimeSpritesheet {
 		
-			static public FastRuntimeSpritesheet NewWithSize(int size) {
+			public static FastRuntimeSpritesheet NewWithSize(int size) {
 				FastRuntimeSpritesheet s = new FastRuntimeSpritesheet();
 				s.SetSpritesheetTextureWithSizeFormat(size, size);
 				return s;
 			}
 			
-			static public FastRuntimeSpritesheet NewWithSizeAndTextures(int size, Texture2D[] textures) {
+			public static FastRuntimeSpritesheet NewWithSizeAndTextures(int size, Texture2D[] textures) {
 				FastRuntimeSpritesheet s = NewWithSize(size);
 				s.EmbedTexturesToSpritesheet(textures);
 				return s;

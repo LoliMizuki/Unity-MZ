@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-static public partial class MZ {
+public static partial class MZ {
 	
-	static public partial class Sprites {
+	public static partial class Sprites {
 
     public class FramesSet {
 
@@ -35,7 +35,7 @@ static public partial class MZ {
             }
         }
         
-        static public FramesSet FramesSetWithDictionaryAndTexture(Dictionary<string, FrameInfo> frameInfosByName, Texture2D texture) {
+        public static FramesSet FramesSetWithDictionaryAndTexture(Dictionary<string, FrameInfo> frameInfosByName, Texture2D texture) {
             MZ.Debugs.Assert(frameInfosByName != null, "frameInfosByName is null");
             MZ.Debugs.Assert(texture != null, "texture is null");
             

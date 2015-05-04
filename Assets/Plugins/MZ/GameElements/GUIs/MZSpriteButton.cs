@@ -47,7 +47,7 @@ public class MZSpriteButton : MonoBehaviour {
 			case FingerHoverPhase.Exit:
 				GetComponent<SpriteRenderer>().sprite = releaseSprite;
 				
-				Vector2 worldPosFromTouch = MZ.Vectors.Vector2FromVector3(Camera.main.ScreenToWorldPoint(evt.Position));
+				Vector2 worldPosFromTouch = MZ.Vectors.Vector2From3(Camera.main.ScreenToWorldPoint(evt.Position));
 				
 				if(!evt.Selection.GetComponent<BoxCollider2D>().OverlapPoint(worldPosFromTouch)) {
 					return;
@@ -72,13 +72,13 @@ public class MZSpriteButton : MonoBehaviour {
 	}
 }
 
-static public partial class MZ {
+public static partial class MZ {
  
-	static public partial class Sprites {
+	public static partial class Sprites {
 		
 		public partial class GUI {
  	
-			static public MZSpriteButton AddSpriteButtonToObject(GameObject obj, Sprite releaseSprite, Sprite pressSprite, Func<bool> enableFunc) {
+			public static MZSpriteButton AddSpriteButtonToObject(GameObject obj, Sprite releaseSprite, Sprite pressSprite, Func<bool> enableFunc) {
 				MZ.Debugs.AssertIfNullWithMessage(obj, "set to null");
 				MZSpriteButton sb = MZ.Components.Apply<MZSpriteButton>(obj);
 				sb.SetSprites(releaseSprite, pressSprite);

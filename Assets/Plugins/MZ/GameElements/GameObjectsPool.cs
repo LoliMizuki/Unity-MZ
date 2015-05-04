@@ -2,11 +2,11 @@
 using System;
 using System.Collections.Generic;
 
-static public partial class MZ {
+public static partial class MZ {
 
 	public class GameObjectsPool {
 	
-		static public GameObjectsPool NewPool(
+		public static GameObjectsPool NewPool(
 			int number,
 	        Func<GameObject> gameObjectCreateFunc,
 			Action<GameObject> onGetAction,

@@ -5,7 +5,7 @@ using System.IO;
 using System.Collections.Generic;
 using MiniJSON;
 
-static public partial class MZ {
+public static partial class MZ {
 
     public interface IData {
         Dictionary<string, object> ToDictionary();

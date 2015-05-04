@@ -2,11 +2,11 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-static public partial class MZ {
+public static partial class MZ {
 
 	public partial class Action {
 	
-		static public ActionSpawn Spawn(params Action[] actions) {
+		public static ActionSpawn Spawn(params Action[] actions) {
 			return new ActionSpawn(actions);
 		}
 	

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEditor;
 #endif
 
-static public partial class MZ {
+public static partial class MZ {
     public interface IInspector {
 		bool InspectorLayout(int deep = 0);
     }
@@ -14,11 +14,11 @@ static public partial class MZ {
 
 #if UNITY_EDITOR
 
-static public partial class MZ {
+public static partial class MZ {
 
     public class EditorGUI {
     
-        static public Rect DrawTextureOnCurrentLayout(Texture2D texture, float width, float height, float offsetInnerBox, string title) {
+        public static Rect DrawTextureOnCurrentLayout(Texture2D texture, float width, float height, float offsetInnerBox, string title) {
             GUILayout.Box(title, GUILayout.Width(width), GUILayout.Height(height));
             Rect lastRect = GUILayoutUtility.GetLastRect();
             
@@ -30,12 +30,12 @@ static public partial class MZ {
             return lastRect;
         }
         
-        static public Rect DrawTextureToRect(Texture2D texture, Rect rect) {
+        public static Rect DrawTextureToRect(Texture2D texture, Rect rect) {
 			UnityEngine.GUI.DrawTexture(rect, texture);
             return rect;        
         }
         
-        static public T LayoutFieldWithObjectValue<T>(string label, object preValue) where T: IConvertible {
+        public static T LayoutFieldWithObjectValue<T>(string label, object preValue) where T: IConvertible {
             Type t = typeof(T);
             
             object newValue = null;
@@ -61,7 +61,7 @@ static public partial class MZ {
             return (T)Convert.ChangeType(newValue, typeof(T));
         }
         
-        static public T LayoutFieldWithObjectValueInDict<T>(string label, string key, Dictionary<string, object> dict) where T: IConvertible {
+        public static T LayoutFieldWithObjectValueInDict<T>(string label, string key, Dictionary<string, object> dict) where T: IConvertible {
             if(dict.ContainsKey(key) == false) {
                 MZ.Dictionaries.SetDefaultValueInDictIfNotContainKey<T>(dict, key);
             }
@@ -78,15 +78,15 @@ static public partial class MZ {
             return newValue;
         }
         
-        static public T LayoutFieldWithObjectValue<T>(string label, int deep, object preValue) where T: IConvertible {
+        public static T LayoutFieldWithObjectValue<T>(string label, int deep, object preValue) where T: IConvertible {
             return LayoutFieldWithObjectValue<T>(EditorGUI.TextLabelWithIndentDeep(label, deep), preValue);
         }
         
-        static public T LayoutFieldWithObjectValueInDict<T>(string label, int deep, string key, Dictionary<string, object> dict) where T: IConvertible {
+        public static T LayoutFieldWithObjectValueInDict<T>(string label, int deep, string key, Dictionary<string, object> dict) where T: IConvertible {
             return LayoutFieldWithObjectValueInDict<T>(EditorGUI.TextLabelWithIndentDeep(label, deep), key, dict);
         }
         
-        static public string TextLabelWithIndentDeep(string label, string indentSymbol, int deep) {
+        public static string TextLabelWithIndentDeep(string label, string indentSymbol, int deep) {
             if(deep == 0) {
                 return label;
             }
@@ -99,15 +99,15 @@ static public partial class MZ {
             return indent + indentSymbol + label;
         }
         
-        static public string TextLabelWithIndentDeep(string label, int deep) {
+        public static string TextLabelWithIndentDeep(string label, int deep) {
             return TextLabelWithIndentDeep(label, "|- ", deep);
         }
         
-        static public void LayoutLabelWithDeep(string label, int deep = 0) {
+        public static void LayoutLabelWithDeep(string label, int deep = 0) {
             EditorGUILayout.LabelField(EditorGUI.TextLabelWithIndentDeep(label, deep));
         }
     
-        static public string LayoutPopupStringsList(string label, string str, List<string> stringsList) {
+        public static string LayoutPopupStringsList(string label, string str, List<string> stringsList) {
             if(stringsList == null || stringsList.Count == 0) {
                 return null;
             }
@@ -120,7 +120,7 @@ static public partial class MZ {
             return stringsList[nextIndex];
         }
     
-        static public string LayoutPopupStringsList(string label, int deep, string str, List<string> stringsList) {
+        public static string LayoutPopupStringsList(string label, int deep, string str, List<string> stringsList) {
             return LayoutPopupStringsList(EditorGUI.TextLabelWithIndentDeep(label, deep), str, stringsList);
         }
     }

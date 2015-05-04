@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-static public partial class MZ {
+public static partial class MZ {
 
 	public partial class Action {
     
-        static public ActionVelAcc VelocityAndAcceleration(Vector3 velocity, Vector3 acceleration, float duration) {
+        public static ActionVelAcc VelocityAndAcceleration(Vector3 velocity, Vector3 acceleration, float duration) {
             return new ActionVelAcc(velocity, acceleration, duration);
         }  
 	

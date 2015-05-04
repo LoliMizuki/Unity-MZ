@@ -1,10 +1,10 @@
 using System;
 
-static public partial class MZ {
+public static partial class MZ {
 
     public class Enums {
 
-        static public E EnumFromString<E>(string str) {
+        public static E EnumFromString<E>(string str) {
             foreach (E e in (E[])Enum.GetValues(typeof(E))) {
                 if (str.ToLower() == e.ToString().ToLower()) {
                     return e;
@@ -15,7 +15,7 @@ static public partial class MZ {
             return default(E);
         }
 
-        static public E[] AllEnums<E>() {
+        public static E[] AllEnums<E>() {
             return (E[])Enum.GetValues(typeof(E));
         }
     }

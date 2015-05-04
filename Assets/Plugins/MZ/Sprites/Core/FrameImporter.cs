@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using MiniJSON;
 
-static public partial class MZ {
+public static partial class MZ {
 	
-	static public partial class Sprites {
+	public static partial class Sprites {
 
 	    public class FrameImporter {
 	
-			static public MZ.Sprites.FramesSet FramesSetFromShoeBoxPathInResources(string pathInResources) {
+			public static MZ.Sprites.FramesSet FramesSetFromShoeBoxPathInResources(string pathInResources) {
 				TextAsset jsonFromShoebox = Resources.Load<TextAsset>(pathInResources);
 				MZ.Debugs.AssertIfNullWithMessage(jsonFromShoebox, "can not found spritesheet file in resources path: " + pathInResources);
 				
@@ -24,7 +24,7 @@ static public partial class MZ {
 	            return framesSet;
 			}
 	
-	        static public Dictionary<string, MZ.Sprites.FrameInfo> FrameInfosDictionaryFromShoeBoxJsonAndTexture(string shoeboxJson, Texture2D texture) {
+	        public static Dictionary<string, MZ.Sprites.FrameInfo> FrameInfosDictionaryFromShoeBoxJsonAndTexture(string shoeboxJson, Texture2D texture) {
 	            Dictionary<string, object> root = Json.Deserialize(shoeboxJson) as Dictionary<string, object>;
 	            Dictionary<string, object> frames = root["frames"] as Dictionary<string, object>;
 	

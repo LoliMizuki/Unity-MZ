@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-static public partial class MZ {
+public static partial class MZ {
 	
 	public partial class Action {
 	
-	    static public ActionDelay Delay(float time) {
+	    public static ActionDelay Delay(float time) {
 	        return new ActionDelay(time);
 	    }
 	

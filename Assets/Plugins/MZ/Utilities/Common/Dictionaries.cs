@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 
-static public partial class MZ {
+public static partial class MZ {
 
     public class Dictionaries {
 
-        static public void SetValueToDict<T>(Dictionary<string, object> dict, string key, object value) {
+        public static void SetValueToDict<T>(Dictionary<string, object> dict, string key, object value) {
             if (dict == null) {
                 dict = new Dictionary<string, object>();
             }
@@ -20,11 +20,11 @@ static public partial class MZ {
             }
         }
 
-        static public T SetDefaultValueInDictIfNotContainKey<T>(Dictionary<string, object> dict, string key) {
+        public static T SetDefaultValueInDictIfNotContainKey<T>(Dictionary<string, object> dict, string key) {
             return Dictionaries.ValueFromDictWithKey<T>(dict, key);
         }
 
-        static public T ValueFromDictWithKey<T>(Dictionary<string, object> dict, string key) {
+        public static T ValueFromDictWithKey<T>(Dictionary<string, object> dict, string key) {
             if (!dict.ContainsKey(key)) {
 				SetValueToDict<T>(dict, key, Values.DefaultValue<T>());
             }
@@ -32,7 +32,7 @@ static public partial class MZ {
             return (T)Values.ValueFormObject<T>(dict[key]);
         }
 
-        static public object ValueFromDictToDict(Dictionary<string, object> fromDict, string fromKey, 
+        public static object ValueFromDictToDict(Dictionary<string, object> fromDict, string fromKey, 
                                              Dictionary<string, object> destDict, string destKey) {
             MZ.Debugs.AssertIfNullWithMessage(fromDict, "from dict can't be null");
 
@@ -42,11 +42,11 @@ static public partial class MZ {
             return value;
         }
 
-        static public object ValueFromDictToDict(Dictionary<string, object> fromDict, Dictionary<string, object> destDict, string key) {
+        public static object ValueFromDictToDict(Dictionary<string, object> fromDict, Dictionary<string, object> destDict, string key) {
             return ValueFromDictToDict(fromDict, key, destDict, key);
         }
 
-        static public T ValueFromDictToDict<T>(Dictionary<string, object> fromDict, string fromKey, 
+        public static T ValueFromDictToDict<T>(Dictionary<string, object> fromDict, string fromKey, 
                                            Dictionary<string, object> destDict, string destKey) {
             T value = (fromDict.ContainsKey(fromKey))? Values.ValueFormObject<T>(fromDict[fromKey]) : 
                                                    Values.DefaultValue<T>();
@@ -55,7 +55,7 @@ static public partial class MZ {
             return value;
         }
 
-        static public T ValueFromDictToDict<T>(Dictionary<string, object> fromDict, Dictionary<string, object> destDict, string key) {
+        public static T ValueFromDictToDict<T>(Dictionary<string, object> fromDict, Dictionary<string, object> destDict, string key) {
             return ValueFromDictToDict<T>(fromDict, key, destDict, key);
         }
     }

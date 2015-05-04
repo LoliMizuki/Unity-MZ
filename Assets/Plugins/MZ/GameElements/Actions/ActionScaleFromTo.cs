@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-static public partial class MZ {
+public static partial class MZ {
 
 	public partial class Action {
 	
-		static public ActionScaleFromTo ScaleFromTo(Vector3 from, Vector3 to, float duration) {
+		public static ActionScaleFromTo ScaleFromTo(Vector3 from, Vector3 to, float duration) {
 			return new ActionScaleFromTo(from, to, duration);
 		}
 	

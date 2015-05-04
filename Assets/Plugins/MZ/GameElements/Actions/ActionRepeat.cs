@@ -2,15 +2,15 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-static public partial class MZ {
+public static partial class MZ {
 
 	public partial class Action {
 	
-	    static public ActionRepeat RepeatTimes(Action action, int times) {
+	    public static ActionRepeat RepeatTimes(Action action, int times) {
 	        return new ActionRepeat(action, times);
 	    }
 	
-		static public ActionRepeat RepeatForever(Action action) {
+		public static ActionRepeat RepeatForever(Action action) {
 			ActionRepeat a = new ActionRepeat(action, 0);
 			a.isForever = true;
 	

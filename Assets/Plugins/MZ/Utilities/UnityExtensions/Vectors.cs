@@ -1,42 +1,42 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-static public partial class MZ {
+public static partial class MZ {
 
     public class Vectors {
 
-        static public Vector2 INVALID_2 = new Vector2(-9999, -9999);
+        public static Vector2 INVALID_2 = new Vector2(-9999, -9999);
         
-        static public Vector3 INVALID_3_BUT_Z = new Vector3(-9999, -9999, 0);
+        public static Vector3 INVALID_3_BUT_Z = new Vector3(-9999, -9999, 0);
 
-        static public Vector3 InvalidButZ(float z) {
+        public static Vector3 InvalidButZ(float z) {
             return new Vector3(INVALID_2.x, INVALID_2.y, z);
         }
         
-		static public float Dot(Vector2 p1, Vector2 p2) {
-			return (p1.x*p2.x) + (p1.y*p2.y);
-		}
-        
-		static public float DistanceV2FromV3(Vector3 p1, Vector3 p2) {
-			return Mathf.Sqrt(Maths.DistanceV2Pow2FromV3(p1, p2));
+		public static float Dot(Vector2 v1, Vector2 v2) { // === UnityEngine.Vector2.Dot
+			return (v1.x*v2.x) + (v1.y*v2.y);
 		}
 		
-		static public float LengthOfVector(Vector2 vector) {
+		public static float Dot(Vector3 v1, Vector3 v2) { // === UnityEngine.Vector3.Dot
+			return (v1.x*v2.x) + (v1.y*v2.y) + (v1.z*v2.z);
+		}
+		
+		public static float LengthOfVector(Vector2 vector) { // === vector.magnitude
 			return Mathf.Sqrt(vector.x*vector.x + vector.y*vector.y);
 		}
 		
-		static public Vector2 UnitVectorV2FromP1ToP2(Vector2 p1, Vector2 p2) {
+		public static float LengthOfVector(Vector3 vector) { // === vector.magnitude
+			return Mathf.Sqrt(vector.x*vector.x + vector.y*vector.y + vector.z*vector.z);
+		}
+		
+		public static Vector2 UnitVectorV2FromP1ToP2(Vector2 p1, Vector2 p2) {
 			float diffY = p2.y - p1.y;
 			float diffX = p2.x - p1.x;
 			
 			if (diffY == 0) {
-				if (diffX > 0) {
-					return new Vector2(1, 0);
-				} else if (diffX < 0) {
-					return new Vector2(-1, 0);
-				} else {
-					return Vector2.zero;
-				}
+				if (diffX > 0) return new Vector2(1, 0); 
+				else if (diffX < 0) return new Vector2(-1, 0);
+				else return Vector2.zero;
 			}
 			
 			float length = Mathf.Sqrt(Mathf.Pow(diffX, 2) + Mathf.Pow(diffY, 2));
@@ -44,19 +44,19 @@ static public partial class MZ {
 			return new Vector2(diffX/length, diffY/length);
 		}
 
-        static public Vector2 Vector2FromVector3(Vector3 vector3) {
+        public static Vector2 Vector2From3(Vector3 vector3) {
             return new Vector2(vector3.x, vector3.y);
         }
 
-        static public Vector3 Vector3FromVector2(Vector2 vector2) {
+        public static Vector3 Vector3From2(Vector2 vector2) {
             return new Vector3(vector2.x, vector2.y, 0);
         }
 
-        static public Vector3 Vector3IgnoreZ(Vector3 vector3) {
+        public static Vector3 Vector3IgnoreZ(Vector3 vector3) {
             return new Vector3(vector3.x, vector3.y, 0);
         }
 
-        static public Vector2 Vector2FromString(string posStr, out bool success) {
+        public static Vector2 Vector2FromString(string posStr, out bool success) {
             posStr = posStr.Replace("(", "").Replace(")", "");
             string[] splitedPosStrs = posStr.Split(',');
 
@@ -76,12 +76,12 @@ static public partial class MZ {
             return new Vector2(x, y);
         }
 
-        static public Vector2 Vector2FromString(string posStr) {
+        public static Vector2 Vector2FromString(string posStr) {
             bool success;
             return Vector2FromString(posStr, out success);
         }
 
-        static public Vector3 Vector3FromString(string posStr, out bool success) {
+        public static Vector3 Vector3FromString(string posStr, out bool success) {
             posStr = posStr.Replace("(", "").Replace(")", "");
             string[] splitedPosStrs = posStr.Split(',');
         
@@ -99,15 +99,16 @@ static public partial class MZ {
             }
         
             success = true;
+            
             return new Vector3(x, y, z);
         }
 
-        static public Vector2 Vector3FromString(string posStr) {
+        public static Vector2 Vector3FromString(string posStr) {
             bool success;
             return Vector3FromString(posStr, out success);
         }
         
-		static public Vector2 UnitVectorFromVectorAddDegree(Vector2 vector, float degrees) {
+		public static Vector2 UnitVectorFromVectorAddDegree(Vector2 vector, float degrees) {
 			float radians = Degrees.RadiansFromDegrees(degrees);
 			
 			float c = Mathf.Cos(radians);
@@ -119,20 +120,20 @@ static public partial class MZ {
 			return unitResultVetor;
 		}
 		
-		static public Vector2 UnitVectorV2FromV3P1ToP2IgnoreZ(Vector3 p1, Vector3 p2) {
+		public static Vector2 UnitVectorV2FromV3P1ToP2IgnoreZ(Vector3 p1, Vector3 p2) {
 			return UnitVectorV2FromP1ToP2(new Vector2(p1.x, p1.y), new Vector2(p2.x, p2.y));
 		}
 		
-		static public Vector2 UnitVectorFromVector(Vector2 vector) {
+		public static Vector2 UnitVectorFromVector(Vector2 vector) {
 			float length = LengthOfVector(vector);
 			return new Vector2(vector.x/length, vector.y/length);
 		}
 		
-		static public Vector2 UnitVectorFromVectorAddDegree(float degrees) {
+		public static Vector2 UnitVectorFromVectorAddDegree(float degrees) {
 			return UnitVectorFromVectorAddDegree(new Vector2(1, 0), degrees);
 		}
 		
-		static public Vector2 UnitVectorFromDegrees(float degrees) {
+		public static Vector2 UnitVectorFromDegrees(float degrees) {
 			float degrees_ = ((int)degrees)%360;
 			
 			if (degrees_ == 90) return new Vector2(0, 1);
@@ -173,7 +174,7 @@ public static class MZVectorsExtensions {
     }
     
     public static Vector3 ToVector3(this Vector2 v) {
-        return MZ.Vectors.Vector3FromVector2(v);
+        return MZ.Vectors.Vector3From2(v);
     }
     
     public static Vector3 ToVector3AndZ(this Vector2 v, float z) {
@@ -201,7 +202,7 @@ public static class MZVectorsExtensions {
     }
     
     public static Vector2 ToVector2(this Vector3 v) {
-        return MZ.Vectors.Vector2FromVector3(v);
+        return MZ.Vectors.Vector2From3(v);
     }
     
     public static Vector3 ToVector3(this string str) {

@@ -5,10 +5,10 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-static public partial class MZ {
+public static partial class MZ {
 
     public class DatabaseTypeConvert {
-        static public int IntFromDBValue(object dbValue) {
+        public static int IntFromDBValue(object dbValue) {
             if( dbValue == null ) {
                 MZ.Debugs.GetTraceStackName( 3 );
                 return 0;
@@ -16,11 +16,11 @@ static public partial class MZ {
             return (int)dbValue;
         }
     
-        static public float FloatFromDBValue(object dbValue) {
+        public static float FloatFromDBValue(object dbValue) {
             return (float)(Double)dbValue;
         }
     
-        static public Vector2 Vector2FromDBValue(object dbValue) {
+        public static Vector2 Vector2FromDBValue(object dbValue) {
             string originString = dbValue as string;
     
             originString = originString.Replace( "(", "" );
@@ -36,7 +36,7 @@ static public partial class MZ {
             return new Vector2( float.Parse( token[ 0 ] ), float.Parse( token[ 1 ] ) );
         }
     
-        static public List<Vector2> Vector2ListFromDBValue(object dbValue) {
+        public static List<Vector2> Vector2ListFromDBValue(object dbValue) {
             string originString = dbValue as string;
     
             originString = originString.Replace( " ", "" );
@@ -74,11 +74,11 @@ static public partial class MZ {
             return posList;
         }
     
-        static public string StringFromDBValue(object dbValue) {
+        public static string StringFromDBValue(object dbValue) {
             return ( dbValue != null )? dbValue.ToString() : "";
         }
     
-        static public Color ColorFromDBValue(object dbValue) {
+        public static Color ColorFromDBValue(object dbValue) {
             string temp = dbValue.ToString().Replace("RGBA", "");
             temp = temp.Replace( "(", "" );
             temp = temp.Replace( ")", "" );
@@ -95,7 +95,7 @@ static public partial class MZ {
             return color;
         }
     
-        static public string SQLTextWrapFromString(string str) {
+        public static string SQLTextWrapFromString(string str) {
             return "'" + str + "'";
         }
     }

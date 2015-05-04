@@ -4,6 +4,10 @@ using System.Collections;
 public static partial class MZ {
 
 	public static class Rects {
+	
+		public static Rect RectWithCenterAndSize(Vector2 center, Vector2 size) {
+			return new Rect(center.x - size.x/2, center.y - size.y/2, size.x, size.y);
+		}
 		
 		public static Rect RectFromString(string str) {
 			string _str = str.Replace("C", "").Replace(")", "");
@@ -15,6 +19,11 @@ public static partial class MZ {
 			float h = float.Parse(attr[3].Split(':')[1]);
 			
 			return new Rect(x, y, w, h);
+		}
+		
+		public static bool IsIntersect(Rect rectA, Rect rectB) {
+			return (Mathf.Abs(rectA.x - rectB.x) < (Mathf.Abs(rectA.width + rectB.width)/2))
+				&& (Mathf.Abs(rectA.y - rectB.y) < (Mathf.Abs(rectA.height + rectB.height)/2));
 		}
 	}
 	

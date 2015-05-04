@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 
-static public partial class MZ {
+public static partial class MZ {
 
     public class Time {
 
@@ -11,11 +11,11 @@ static public partial class MZ {
             FrameBase,
         }
 
-        static public float timeScale = 1;
+        public static float timeScale = 1;
 
-        static public float stepTime { get { return instance._stepTimeFunc(); } }
+        public static float stepTime { get { return instance._stepTimeFunc(); } }
 
-        static public UpdateMode updateMode { 
+        public static UpdateMode updateMode { 
             get { return instance._updateMode; } 
             set { instance.SetUpdateMode(value); } 
         }

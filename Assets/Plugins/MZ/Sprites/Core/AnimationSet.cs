@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using MiniJSON;
 
-static public partial class MZ {
+public static partial class MZ {
     
-    static public partial class Sprites {
+    public static partial class Sprites {
 
     public class AnimationSet {
 
 		// TODO: maybe go to spriteRender Control
-		static public Shader ShaderFromMode(MZ.Sprites.ShaderMode shaderMode) {
+		public static Shader ShaderFromMode(MZ.Sprites.ShaderMode shaderMode) {
 			switch(shaderMode) {
 			case MZ.Sprites.ShaderMode.Additive:
 				return Shader.Find("Particles/Additive");
@@ -25,7 +25,7 @@ static public partial class MZ {
 		public float oneLoopTime;
 		public MZ.Sprites.ShaderMode shaderMode;
 		
-		static public AnimationSet New() {
+		public static AnimationSet New() {
 			AnimationSet newSet = new AnimationSet();
 			newSet.name = "";
 			newSet.textureName = "";
@@ -64,7 +64,7 @@ static public partial class MZ {
             }
         }
 
-        static public AnimationSet AnimationSetWithParameters(string name, float oneLoopTime, string textureName, params string[] frameNames) {
+        public static AnimationSet AnimationSetWithParameters(string name, float oneLoopTime, string textureName, params string[] frameNames) {
             AnimationSet animationSet = AnimationSet.New();
             animationSet.name = name;
             animationSet.textureName = textureName;
@@ -76,7 +76,7 @@ static public partial class MZ {
             return animationSet;
         }
 
-        static public AnimationSet AnimationSetFromDictionary(Dictionary<string,object> dictionary) {
+        public static AnimationSet AnimationSetFromDictionary(Dictionary<string,object> dictionary) {
             string name = dictionary["name"].ToString();
 
             float oneLoopTime = float.Parse(dictionary["one_loop_time"].ToString());
@@ -102,12 +102,12 @@ static public partial class MZ {
             return animationSet;
         }
 
-        static public AnimationSet AnimationSetFromJson(string json) { 
+        public static AnimationSet AnimationSetFromJson(string json) { 
             Dictionary<string, object> dict = Json.Deserialize(json) as Dictionary<string, object>;
             return AnimationSetFromDictionary(dict);
         }
 
-        static public Dictionary<string, object> DictionaryFromAnimationSet(AnimationSet animationSet) {
+        public static Dictionary<string, object> DictionaryFromAnimationSet(AnimationSet animationSet) {
             Dictionary<string, object> dict = new Dictionary<string, object>();
 
             dict.Add("name", animationSet.name);

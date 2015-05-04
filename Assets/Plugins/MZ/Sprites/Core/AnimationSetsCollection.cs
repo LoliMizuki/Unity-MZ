@@ -3,13 +3,13 @@ using System.IO;
 using System.Collections.Generic;
 using MiniJSON;
 
-static public partial class MZ {
+public static partial class MZ {
 	
-	static public partial class Sprites {
+	public static partial class Sprites {
 
 	    public class AnimationSetsCollection {
 	
-	        static public MZ.Sprites.AnimationSetsCollection instance {
+	        public static MZ.Sprites.AnimationSetsCollection instance {
 	            get {
 	                if(_instance == null) {
 	                    _instance = new MZ.Sprites.AnimationSetsCollection();

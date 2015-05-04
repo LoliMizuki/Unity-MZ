@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-static public partial class MZ {
+public static partial class MZ {
 
     public class MapReduce {
     

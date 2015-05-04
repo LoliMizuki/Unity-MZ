@@ -5,11 +5,11 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 
-static public partial class MZ {
+public static partial class MZ {
 
     public class Debugs {
     
-        static public string GetTraceStackName(int skipFrames) {
+        public static string GetTraceStackName(int skipFrames) {
             StackTrace stackTrace = new System.Diagnostics.StackTrace(skipFrames);
             int frameIndex = 0;
             StackFrame stackFrame = stackTrace.GetFrame(frameIndex);
@@ -17,36 +17,36 @@ static public partial class MZ {
             return stackFrame.GetMethod().DeclaringType.FullName + "." + stackFrame.GetMethod().Name + "(): ";
         }
 
-        static public void Trace(int skipFrames) {
+        public static void Trace(int skipFrames) {
             UnityEngine.Debug.Log(GetTraceStackName(skipFrames));
         }
 
-        static public void Trace() {
+        public static void Trace() {
             // caller -> Trace() --> Trace(skipframes)
             Trace(3);
         }
 
-        static public void Log(string message) {
+        public static void Log(string message) {
             if (Application.platform != RuntimePlatform.OSXEditor) return;
             
             LogWithSkipFrames(3, message);
         }
 
-        static public void Log(string format, params object[] args) {
+        public static void Log(string format, params object[] args) {
 			if (Application.platform != RuntimePlatform.OSXEditor) return;
 			
             string message = string.Format(format, args);
             LogWithSkipFrames(3, message);
         }
 
-        static public void LogBreak(string message) {
+        public static void LogBreak(string message) {
 			if (Application.platform != RuntimePlatform.OSXEditor) return;
         
             LogWithSkipFrames(3, message);
             UnityEngine.Debug.Break();
         }
 
-        static public bool Alert(bool condition, string message) {
+        public static bool Alert(bool condition, string message) {
 			if (Application.platform != RuntimePlatform.OSXEditor) return false;
         
             if (!condition) {
@@ -57,33 +57,33 @@ static public partial class MZ {
             return condition;
         }
 
-        static public void Assert(bool condition, string message) {
+        public static void Assert(bool condition, string message) {
             AssertWithSkipFrames(3, condition, message);
         }
 
-        static public void Assert(bool condition, string format, params object[] args) {
+        public static void Assert(bool condition, string format, params object[] args) {
 			if (Application.platform != RuntimePlatform.OSXEditor) return;
         
             string message = string.Format(format, args);
             AssertWithSkipFrames(3, condition, message);
         }
 
-        static public void AssertIfNull(object testObject) {
+        public static void AssertIfNull(object testObject) {
             AssertWithSkipFrames(3, testObject != null, "null object!!!");
         }
 
-        static public void AssertIfNullWithMessage(object testObject, string message) {
+        public static void AssertIfNullWithMessage(object testObject, string message) {
             AssertWithSkipFrames(3, testObject != null, message);
         }
 
-        static public void AssertIfNullWithMessage(object testObject, string format, params object[] args) {
+        public static void AssertIfNullWithMessage(object testObject, string format, params object[] args) {
 			if (Application.platform != RuntimePlatform.OSXEditor) return;
         
             string message = string.Format(format, args);
             AssertWithSkipFrames(3, testObject != null, message);
         }
 
-        static public void AssertAlwaysFalse(string message) {
+        public static void AssertAlwaysFalse(string message) {
             AssertWithSkipFrames(3, false, message);
         }
 

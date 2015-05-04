@@ -2,19 +2,19 @@
 using System;
 using System.Collections;
 
-static public partial class MZ {
+public static partial class MZ {
 
-	static public partial class Sprites {
+	public static partial class Sprites {
 
-		static public string SPRITESHEETS_DIRECTORY_IN_RESOURCES = "Atlases";
+		public static string SPRITESHEETS_DIRECTORY_IN_RESOURCES = "Atlases";
 		
-		static public string ANIMATIONS_DIRECTORY_IN_RESOURCES = "Animations";
+		public static string ANIMATIONS_DIRECTORY_IN_RESOURCES = "Animations";
 
-		static public string SPRITESHEET_EXT_NAME = "txt";
+		public static string SPRITESHEET_EXT_NAME = "txt";
 		
-		static public string ANIMATION_EXT_NAME = "json";
+		public static string ANIMATION_EXT_NAME = "json";
 
-		static public float PIXEL_TO_UNIT = 1;
+		public static float PIXEL_TO_UNIT = 1;
 
 		public enum ShaderMode {
 			Default,

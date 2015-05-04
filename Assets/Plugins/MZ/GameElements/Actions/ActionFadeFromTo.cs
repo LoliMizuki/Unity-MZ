@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-static public partial class MZ {
+public static partial class MZ {
 
 	public partial class Action {
 	
-		static public ActionFadeFromTo FadeFromTo(int from, int to, float duration) {
+		public static ActionFadeFromTo FadeFromTo(int from, int to, float duration) {
 			return new ActionFadeFromTo((float)from / 255.0f, (float)to / 255.0f, duration);
 		}
 	

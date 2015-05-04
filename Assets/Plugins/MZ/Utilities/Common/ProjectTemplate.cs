@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Collections;
 
-static public partial class MZ {
+public static partial class MZ {
 
     public interface IProjectTemplateDelgete {
         string NewFilePath();
@@ -19,7 +19,7 @@ static public partial class MZ {
     
     public class ProjectTemplate {
     
-        static public ProjectTemplate ProjectTemplateWithDelegate(IProjectTemplateDelgete projectManageDelgete) {
+        public static ProjectTemplate ProjectTemplateWithDelegate(IProjectTemplateDelgete projectManageDelgete) {
             ProjectTemplate projectManage = new ProjectTemplate();
     
             projectManage._currentProjectPath = null;

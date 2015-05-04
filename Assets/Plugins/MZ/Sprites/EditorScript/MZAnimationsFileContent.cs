@@ -17,7 +17,7 @@ public class MZAnimationsFileContent {
 		}
 	}
 
-	static public MZAnimationsFileContent ProjectContentFromPath(string path) {
+	public static MZAnimationsFileContent ProjectContentFromPath(string path) {
 		Func<string, Dictionary<string, object>> loadProjectDictFromPath = (string p) => {
 			if(IsPathValid(p) == false) {
 				return null;

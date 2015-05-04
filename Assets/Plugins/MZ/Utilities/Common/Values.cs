@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-static public partial class MZ {
+public static partial class MZ {
 
     public class Values {
 
-        static public Dictionary<Type, object> defaultValueByType = new Dictionary<Type, object> {
+        public static Dictionary<Type, object> defaultValueByType = new Dictionary<Type, object> {
             { typeof(int), 0 },
             { typeof(float), 0.0f },
             { typeof(string), "" },
@@ -16,7 +16,7 @@ static public partial class MZ {
             { typeof(Rect), new Rect(0,0,0,0) },
         };
         
-        static public Dictionary<Type, Func<object, object>> convertFuncByType = new Dictionary<Type, Func<object, object>> {
+        public static Dictionary<Type, Func<object, object>> convertFuncByType = new Dictionary<Type, Func<object, object>> {
         
             {typeof(int), (obj) => {  
                     int result = 0;
@@ -62,7 +62,7 @@ static public partial class MZ {
         		}},
         };
     
-        static public T DefaultValue<T>() {
+        public static T DefaultValue<T>() {
             MZ.Debugs.Assert(
             	defaultValueByType.ContainsKey(
 	            	typeof(T)), 
@@ -71,7 +71,7 @@ static public partial class MZ {
             return (T)defaultValueByType[typeof(T)];
         }
 
-        static public T ValueFormObject<T>(object objValue) {
+        public static T ValueFormObject<T>(object objValue) {
             if (objValue.GetType() == typeof(T)) {
                 return (T)objValue;
             }
