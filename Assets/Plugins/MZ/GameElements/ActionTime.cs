@@ -16,10 +16,13 @@ public partial class MZ {
 				if (scaleDidSetAction != null) scaleDidSetAction(pre, curr);
 			}
 		}
-		float _scale = 1;
 		
 		public float delta { get { return UnityEngine.Time.deltaTime * scale; } }
 		
 		public Action<float, float> scaleDidSetAction = null;
+		
+		
+		
+		float _scale = 1;
 	}
 }

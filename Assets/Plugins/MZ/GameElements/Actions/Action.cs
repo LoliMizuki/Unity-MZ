@@ -52,6 +52,8 @@ public static partial class MZ {
 				if (updateAction != null) updateAction(this);
 				passedTime += deltaTime;
 			}
+			
+			public virtual void DrawGizmos() {}
 		}
 	}
 }

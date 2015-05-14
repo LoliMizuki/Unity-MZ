@@ -12,7 +12,7 @@ public class MZEventsExcutorInspector : Editor {
     
         EditorGUILayout.Space();
     
-        foreach (MZ.Event e in _eventsExcutor.events) {
+        foreach (MZ.Actions.ActionBase e in _eventsExcutor.events) {
             MZ.EditorGUI.LayoutLabelWithDeep("Type: " + e.GetType());
             MZ.EditorGUI.LayoutLabelWithDeep("Passed: " + e.passedTime.ToString(), 1);
         }
