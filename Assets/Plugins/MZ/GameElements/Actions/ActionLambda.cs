@@ -2,6 +2,8 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+// Lambda = System.Action
+
 public static partial class MZ {
 
 	public partial class Actions {

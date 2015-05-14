@@ -35,13 +35,11 @@ public static partial class MZ {
 	                _currAction.Start();
 	            }
 	            
-	            if(_currAction == null) {
-	                return;
-	            }
+	            if (_currAction == null) return;
 	            
 	            _currAction.Update();
 	            
-	            if(!_currAction.isActive) {
+	            if (!_currAction.isActive) {
 	                _currAction.End();
 	                _currAction = null;
 	            }
@@ -51,8 +49,6 @@ public static partial class MZ {
 	
 	        public override void End() {
 	            _actionsRunningQueue.Clear();
-	            _actionsRunningQueue = null;
-	            
 	            _currAction = null;
 	
 	            base.End();

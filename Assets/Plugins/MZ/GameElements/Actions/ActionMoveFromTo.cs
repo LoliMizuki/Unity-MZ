@@ -4,6 +4,10 @@ using System.Collections;
 public static partial class MZ {
 
 	public partial class Actions {
+	
+		public static ActionMoveFromTo MoveTo(Vector3 to, float duration) {
+			return new ActionMoveFromTo(Vector3.zero, to, duration, fromTargetPosition: true);
+		}
 	   
 	    public static ActionMoveFromTo MoveFromTo(Vector3 from, Vector3 to, float duration) {
 	        return new ActionMoveFromTo(from, to, duration);
@@ -11,16 +15,18 @@ public static partial class MZ {
 	
 	    public class ActionMoveFromTo : ActionBase {
 	
-	        public ActionMoveFromTo(Vector3 from, Vector3 to, float duration) {
+	        public ActionMoveFromTo(Vector3 from, Vector3 to, float duration, bool fromTargetPosition = false) {
 	            _from = from;
 	            _to = to;
+				_fromTargetPosition = fromTargetPosition;
 	            this.duration = duration;
 	        }
 	
-			public override bool isActive {
-				get {
-					return passedTime < duration;
-				}
+			public override bool isActive { get { return passedTime < duration; } }
+			
+			public override void Start() {
+				base.Start();
+				if (_fromTargetPosition) _from = gameObject.transform.localPosition;
 			}
 	
 			public override void Update() {
@@ -37,9 +43,14 @@ public static partial class MZ {
 	            gameObject.transform.localPosition = _to;
 	            base.End();
 	        }
+	        
+	        
 	
 	        Vector3 _from;
+	        
 	        Vector3 _to;
+	        
+			bool _fromTargetPosition;
 	    }
 	}
 }

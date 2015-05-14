@@ -1,31 +1,35 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class TestScene : MonoBehaviour {
 
 	void Awake() {
 		var cube = GameObject.Find("Cube");
+		
+		MZ.Components.Apply<MZActionBehaviour>(cube).Run(
+			MZ.Actions.Sequence(
+				MZ.Actions.MoveTo(new Vector3(30, 50, 0), 3),
+				MZ.Actions.MoveTo(new Vector3(30, -50, 0), 3)
+			)
+		);		
+		
 //		cube.GetComponent<MZActionBehaviour>().Run(
 //			MZ.Actions.RepeatTimes(MZ.Actions.ColorFromTo(Color.white, Color.blue, 1.0f), 3)
 //		);
 
-
-		
-
-
-		cube.GetComponent<MZActionBehaviour>().Run(
-			MZ.Actions.Spawn(
-				MZ.Actions.MoveEllipseFromTo(
-					180, 90, false, Vector2.zero, 4, 2, 1 
-				),		
-				
-				MZ.Actions.Sequence(
-					MZ.Actions.ColorFromTo(Color.white, Color.blue, 1.0f),
-					MZ.Actions.ColorFromTo(Color.blue,  Color.red,  1.0f),
-					MZ.Actions.ColorFromTo(Color.red,   Color.grey, 1.0f)
-				)
-			)
-		);
+//		cube.GetComponent<MZActionBehaviour>().Run(
+//			MZ.Actions.Spawn(
+//				MZ.Actions.MoveEllipseFromTo(
+//					180, 90, false, Vector2.zero, 4, 2, 1 
+//				),		
+//				
+//				MZ.Actions.Sequence(
+//					MZ.Actions.ColorFromTo(Color.white, Color.blue, 1.0f),
+//					MZ.Actions.ColorFromTo(Color.blue,  Color.red,  1.0f),
+//					MZ.Actions.ColorFromTo(Color.red,   Color.grey, 1.0f)
+//				)
+//			)
+//		);
 	
 //		var v1 = new Vector3(2, 6, 4);
 //		var v2 = new Vector3(15, 3, 33);

@@ -14,11 +14,7 @@ public static partial class MZ {
 	
 		public class ActionLambdaWithTime : ActionBase {
 	
-	        public override bool isActive {
-	            get {
-	                return passedTime < duration;
-	            }
-	        }
+	        public override bool isActive { get { return passedTime < duration; } }
 	
 	        public ActionLambdaWithTime(LambdaTimeSignature action, float duration) {
 	            _action = action;
