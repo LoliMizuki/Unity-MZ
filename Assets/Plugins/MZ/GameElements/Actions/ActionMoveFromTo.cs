@@ -25,17 +25,19 @@ public static partial class MZ {
 			public override bool isActive { get { return passedTime < duration; } }
 			
 			public override void Start() {
-				base.Start();
 				if (_fromTargetPosition) _from = gameObject.transform.localPosition;
+				gameObject.transform.localPosition = _from;
+				
+				base.Start();
 			}
 	
 			public override void Update() {
 	            Vector3 diff = _to - _from;
-	            float currLerp = MZ.Maths.Lerp(passedTime, duration);
+	            float lerp = MZ.Maths.Lerp(passedTime, duration);
 	            
-	            gameObject.transform.localPosition = new Vector3(_from.x + diff.x * currLerp,
-	                                                             _from.y + diff.y * currLerp,
-	                                                             _from.z + diff.z * currLerp);
+	            gameObject.transform.localPosition = new Vector3(_from.x + diff.x * lerp,
+	                                                             _from.y + diff.y * lerp,
+	                                                             _from.z + diff.z * lerp);
 	            base.Update();
 			}
 	

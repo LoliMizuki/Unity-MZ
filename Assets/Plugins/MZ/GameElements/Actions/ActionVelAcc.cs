@@ -12,7 +12,7 @@ public static partial class MZ {
 		public class ActionVelAcc : ActionBase {
         
             public ActionVelAcc(Vector3 velocity, Vector3 acceleration, float duration) {
-                this.duration = duration;
+				this.duration = duration;
                 _velocity = velocity;
 				_acceleration = acceleration;
             }

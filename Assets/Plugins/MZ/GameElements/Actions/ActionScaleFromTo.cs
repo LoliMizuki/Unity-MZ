@@ -11,20 +11,19 @@ public static partial class MZ {
 	
 		public class ActionScaleFromTo : ActionBase {
 	
-			public ActionScaleFromTo(Vector3 from, Vector3 to, float duration) {
-				_from = from;
-				_to = to;
-				this.duration = duration;
+			public ActionScaleFromTo(Vector3 from, Vector3 to, float duration, bool fromTargetScale = false) {
+				_from 			 = from;
+				_to 			 = to;
+				_fromTargetScale = fromTargetScale;
+				this.duration 	 = duration;
 			}
 	
-	        public override bool isActive {
-	            get {
-	                return passedTime < duration;
-	            }
-	        }
+	        public override bool isActive { get { return passedTime < duration; } }
 	
 	        public override void Start() {
+				if (_fromTargetScale) _from = gameObject.transform.localScale;
 	            gameObject.transform.localScale = _from;
+	            
 	            base.Start();
 	        }
 	
@@ -44,8 +43,13 @@ public static partial class MZ {
 	            base.End();
 	        }
 	
+	
+	
 			Vector3 _from;
+			
 			Vector3 _to;
+			
+			bool _fromTargetScale;
 		}
 	}
 }

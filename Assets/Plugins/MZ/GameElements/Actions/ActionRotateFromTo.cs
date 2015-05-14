@@ -13,7 +13,7 @@ public static partial class MZ {
         }
         
         public static ActionRotateFromTo RotateAtZFromTo(float from, float to, float duration) {
-            Vector3 from3 = new Vector3(0, 0, from);
+			Vector3 from3 = new Vector3(0, 0, from);
             Vector3 to3 = new Vector3(0, 0, to);
         
             return new ActionRotateFromTo(from3, to3, duration);
@@ -22,6 +22,7 @@ public static partial class MZ {
         public class ActionRotateFromTo : ActionBase {
         
             public Vector3 from;
+            
             public Vector3 to;
         
             public ActionRotateFromTo(Vector3 from, Vector3 to, float duration) {

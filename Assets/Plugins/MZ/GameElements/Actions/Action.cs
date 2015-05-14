@@ -34,26 +34,22 @@ public static partial class MZ {
 			
 		    public float duration;
 		
-			public virtual bool isActive {
-				get {
-					return (activeFunc != null)? activeFunc(this) : true;
-				}
-			}
+			public virtual bool isActive { get { return (activeFunc != null)? activeFunc(this) : true; } }
 		
 		    public ActionBase() {
 		    }
 		
 			public virtual void Start() {
 				passedTime = 0;
-		        if(startAction != null) startAction(this);
+		        if (startAction != null) startAction(this);
 			}
 		
 		    public virtual void End() {
-				if(endAction != null) endAction(this);
+				if (endAction != null) endAction(this);
 			}
 			
 			public virtual void Update() {
-				if(updateAction != null) updateAction(this);
+				if (updateAction != null) updateAction(this);
 				passedTime += deltaTime;
 			}
 		}

@@ -7,10 +7,7 @@ public class TestScene : MonoBehaviour {
 		var cube = GameObject.Find("Cube");
 		
 		MZ.Components.Apply<MZActionBehaviour>(cube).Run(
-			MZ.Actions.Sequence(
-				MZ.Actions.MoveTo(new Vector3(30, 50, 0), 3),
-				MZ.Actions.MoveTo(new Vector3(30, -50, 0), 3)
-			)
+			MZ.Actions.VelocityAndAcceleration(new Vector3(10, 0, 0), new Vector3(0, 1, 1), float.PositiveInfinity)
 		);		
 		
 //		cube.GetComponent<MZActionBehaviour>().Run(
