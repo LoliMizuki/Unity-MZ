@@ -4,7 +4,7 @@ using System.Collections;
 
 public static partial class MZ {
 
-	public static class Paths {
+	public static class FilePaths {
 	
 		#if UNITY_EDITOR
         public static string FULL_ASSETS_FOLDER_PATH = Environment.CurrentDirectory + "/Assets";

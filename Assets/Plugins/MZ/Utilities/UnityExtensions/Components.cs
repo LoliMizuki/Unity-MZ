@@ -6,11 +6,10 @@ public static partial class MZ {
 	public class Components {
 	
 		public static T Apply<T>(GameObject gameObject) where T : Component {
-			if(gameObject.GetComponent<T>() == null) {
-				gameObject.AddComponent<T>();
-			}
-	
-			return gameObject.GetComponent<T>();
+			var comp = gameObject.GetComponent<T>();
+			if (gameObject.GetComponent<T>() == null) comp = gameObject.AddComponent<T>();
+			
+			return comp;
 		}
 	}
 }

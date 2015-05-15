@@ -5,7 +5,7 @@ public static partial class MZ {
 
 	public static class Rects {
 	
-		public static Rect RectWithCenterAndSize(Vector2 center, Vector2 size) {
+		public static Rect RectFromCenterAndSize(Vector2 center, Vector2 size) {
 			return new Rect(center.x - size.x/2, center.y - size.y/2, size.x, size.y);
 		}
 		
