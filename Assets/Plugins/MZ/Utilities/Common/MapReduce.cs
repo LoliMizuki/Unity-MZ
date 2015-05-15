@@ -17,18 +17,9 @@ public static partial class MZ {
 			foreach (KeyValuePair<K, T> kv in dict) action(kv.Value);
 		}
 
-        // TODO: improve me!!!
-		public static void MapToList<T1, T2>(List<T1> list1, List<T2> list2, Action<T1,T2> action) {
+		public static void MapToLists<T1, T2>(List<T1> list1, List<T2> list2, Action<T1, T2> action) {
             int minCount = (list1.Count < list2.Count)? list1.Count : list2.Count;
-            for (int i = 0; i < minCount; i++) {
-                action(list1[i], list2[i]);
-            }
-        }
-
-		public static void MapWithTimes<T>(List<T> list, int times, Action<T> action) {
-            for (int i = 0; i < times; i++) {
-                action(list[i]);
-            }
+            for (int i = 0; i < minCount; i++) action(list1[i], list2[i]);
         }
     }
 }
