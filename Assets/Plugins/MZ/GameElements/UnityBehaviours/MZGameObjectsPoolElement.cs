@@ -12,9 +12,7 @@ public class MZGameObjectsPoolElement : MonoBehaviour {
 	public void ReturnToPool() {
 		MZ.Debugs.AssertIfNullWithMessage(pool, "no pool to return");
 
-        if(onReturnPoolAction != null) {
-            onReturnPoolAction(gameObject);
-        }
+		if(onReturnPoolAction != null) onReturnPoolAction(gameObject);
 
 		pool.ReturnGameObject(gameObject);
 	}
