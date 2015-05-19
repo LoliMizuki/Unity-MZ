@@ -78,7 +78,7 @@ public class MZAnimation : MonoBehaviour {
 //          _currentAnimationSet = animationsSetsByName[keys[0]];
 
         // try my method
-        List<string> animKeyNames = MZ.Collections.KeysListFromDict(animationsSetsByName);
+		List<string> animKeyNames = animationsSetsByName.KeysList();
         _currentAnimationSet = animationsSetsByName[animKeyNames[0]];
 
         SetFrameWithIndex(0);
@@ -99,8 +99,11 @@ public class MZAnimation : MonoBehaviour {
         ResetStateToPlay();
 
         if (!animationsSetsByName.ContainsKey(animationName)) {
-            MZ.Debugs.Log("can not found animation with name = " + animationName + " in " + 
-                MZ.Collections.KeysStringInDict(animationsSetsByName));
+			MZ.Debugs.Log(
+				"can not found animation set with name({0}) in {1}",
+				name,
+				animationsSetsByName.KeyNamesString()
+			);
             return false;
         }
 

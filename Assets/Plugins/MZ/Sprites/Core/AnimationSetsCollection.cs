@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
 using MiniJSON;
@@ -44,8 +44,12 @@ public static partial class MZ {
 	            }
 	
 				if(name == null || !animationSetByName.ContainsKey(name)) {
-	                MZ.Debugs.Log("can not found animation set with name(" + name + ") in " + MZ.Collections.KeysStringInDict(animationSetByName));
-	
+	                MZ.Debugs.Log(
+						"can not found animation set with name({0}) in {1}",
+						name,
+						animationSetByName.KeyNamesString()
+					);
+					
 	                return null;
 	            }
 	
