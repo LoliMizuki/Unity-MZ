@@ -8,6 +8,8 @@ public static partial class MZ {
         public static Vector2 INVALID_2 = new Vector2(-9999, -9999);
         
         public static Vector3 INVALID_3_BUT_Z = new Vector3(-9999, -9999, 0);
+        
+		public static Vector2 HALF_OF_ONE_V2 = new Vector2(0.5f, 0.5f);
 
         public static Vector3 InvalidButZ(float z) {
             return new Vector3(INVALID_2.x, INVALID_2.y, z);
