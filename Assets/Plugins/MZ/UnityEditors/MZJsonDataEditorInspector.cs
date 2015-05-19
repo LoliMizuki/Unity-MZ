@@ -7,7 +7,7 @@ using System.Collections;
 // add below
 // [CustomEditor(typeof(xxx))]
 public class MZJsonDataEditorInspector<EDITOR_TYPE, DATA_TYPE> : Editor 
-	where DATA_TYPE : MZ.JsonData, new()
+	where DATA_TYPE : MZ.Datas.JsonDatas.Data, new()
 	where EDITOR_TYPE : MZJsonDataEditor<DATA_TYPE> {
 	
     public EDITOR_TYPE editor { get; internal set; }

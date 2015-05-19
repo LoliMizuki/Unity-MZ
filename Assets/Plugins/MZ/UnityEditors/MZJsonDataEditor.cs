@@ -6,7 +6,7 @@ using System.IO;
 using System.Collections;
 
 [ExecuteInEditMode]
-public class MZJsonDataEditor<DATA_TYPE> : MonoBehaviour where DATA_TYPE : MZ.JsonData, new() {
+public class MZJsonDataEditor<DATA_TYPE> : MonoBehaviour where DATA_TYPE : MZ.Datas.JsonDatas.Data, new() {
 
 	public DATA_TYPE data = null;
 	
