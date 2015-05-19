@@ -3,15 +3,15 @@ using System.Collections;
 
 public static partial class MZ {
 
-	public static class Physics2D {
+	public static class Physics {
 	
-		public static BoxCollider2D SetBoxColliderToSpriteObject(GameObject gameObj) {
-			BoxCollider2D collider = MZ.Components.Apply<BoxCollider2D>(gameObj);
+		public static BoxCollider2D SetBoxCollider2DFitSpriteToObject(GameObject gameObject) {
+			var collider = MZ.Components.Apply<BoxCollider2D>(gameObject);
 		
-			SpriteRenderer sr = gameObj.GetComponent<SpriteRenderer>();
-			if (sr == null) return collider;
+			var spriteRender = gameObject.GetComponent<SpriteRenderer>();
+			if (spriteRender == null) return collider;
 			
-			Vector2 spriteSize = new Vector2(sr.sprite.texture.width, sr.sprite.texture.height);
+			var spriteSize = new Vector2(spriteRender.sprite.texture.width, spriteRender.sprite.texture.height);
 			collider.size = spriteSize;
 			
 			return collider;
