@@ -62,9 +62,7 @@ public static partial class MZ {
         }
         
         public static T LayoutFieldWithObjectValueInDict<T>(string label, string key, Dictionary<string, object> dict) where T: IConvertible {
-            if(dict.ContainsKey(key) == false) {
-                MZ.Dictionaries.SetDefaultValueInDictIfNotContainKey<T>(dict, key);
-            }
+			dict.AutoSetValueForKey<string, object>(key, new Func<object>(() => MZ.Values.DefaultValue<T>()));
             
             object preValue = dict[key];
             T newValue = LayoutFieldWithObjectValue<T>(label, preValue);
