@@ -11,34 +11,27 @@ public static partial class MZ {
 
     public interface IEditorPart<T> {
         T editor { get; }
+        
         Dictionary<string, object> dataDict { get; }
+        
         void Reset();
+        
         void InspectorGUI();
+        
         void SetWithDict(Dictionary<string, object> dict);
+        
         Dictionary<string, object> GetOutputDict();
     }
     
     public class EditorPart<T> : IEditorPart<T> {
         
-        public T editor {
-            get {
-                return _editor;
-            }
-        }
+		public T editor { get; private set; }
         
-        public Dictionary<string, object> dataDict { 
-            get {
-                if(_dataDictCache == null) {
-                    _dataDictCache = new Dictionary<string, object>();
-                }
-                
-                return _dataDictCache;
-            }
-        }
-        Dictionary<string, object> _dataDictCache;
+		public Dictionary<string, object> dataDict { get; private set; }
         
         public EditorPart(T editor) {
-            _editor = editor;
+			this.editor = editor;
+			dataDict = new Dictionary<string, object>();
         }
         
         public virtual void Reset() {
@@ -57,8 +50,6 @@ public static partial class MZ {
             MZ.Debugs.AssertAlwaysFalse("override me");
             return null;
         }
-        
-        T _editor;
     }
 }
 

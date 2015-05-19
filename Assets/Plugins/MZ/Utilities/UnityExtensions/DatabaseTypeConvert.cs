@@ -1,6 +1,3 @@
-// TODO: some unity type here, how to manage them?
-// TODO: parse is simple algorithm now, need enhance
-
 using UnityEngine;
 using System;
 using System.Collections.Generic;
@@ -8,11 +5,8 @@ using System.Collections.Generic;
 public static partial class MZ {
 
     public class DatabaseTypeConvert {
+    
         public static int IntFromDBValue(object dbValue) {
-            if( dbValue == null ) {
-                MZ.Debugs.GetTraceStackName( 3 );
-                return 0;
-            }
             return (int)dbValue;
         }
     
