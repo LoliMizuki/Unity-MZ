@@ -8,33 +8,27 @@ public static partial class MZ {
 	
 	public static partial class Datas {
 	
-		public interface IJsonSerializable: IDictionarySerializable {
-			string ToJson();
-			void FromJson(string json);
-		}
-		
 		public static class JsonDatas {
 		
-			public class Data : MZ.Datas.IJsonSerializable {
+			public interface IJsonSerializable: IDictionarySerializable {
+				string ToJson();
+				void FromJson(string json);
+			}
+		
+			public class Data : IJsonSerializable {
 				
 				public delegate object ObjectFromTypedObject(Type type, string name, object obj);
 				
 				public delegate void ActionWithSelfAndDict(Data self, Dictionary<string, object> dict);
 				
 				public Data() {            
-					AddDefaultRules();
 				}
 				
 				public string ListAllDataFields() {
 					string str = this.GetType().ToString() + "{" + "\n";
 					
-					foreach (FieldInfo fi in this.GetType().GetFields()) {
-						str += fi.Name + ": " + fi.FieldType + "(field)\n";
-					}
-					
-					foreach (PropertyInfo pi in this.GetType().GetProperties()) {
-						str += pi.Name + ": " + pi.PropertyType + "(property)" + "\n";
-					}
+					foreach (FieldInfo fi in this.GetType().GetFields()) str += fi.Name + ": " + fi.FieldType + "(field)\n";
+					foreach (PropertyInfo pi in this.GetType().GetProperties()) str += pi.Name + ": " + pi.PropertyType + "(property)" + "\n";
 					
 					str += "}";
 					
@@ -77,11 +71,6 @@ public static partial class MZ {
 					if (toDict != null) _convertedRulesToDictByName.Add(name, toDict);
 				}
 				
-				public void AddDataFieldFromToConvertedRuleWithType(Type type, ObjectFromTypedObject fromDict, ObjectFromTypedObject toDict = null) {
-					_convertedRulesFromDictByType.Add(type, fromDict);
-					if (toDict != null) _convertedRulesToDictByType.Add(type, toDict);
-				}
-				
 				public void AddIgnoredDataFieldName(string name) {
 					AddDataFieldFromToConvertedRuleWithName(name, (t, n, o) => null, (t, n, o) => null);
 				}
@@ -93,7 +82,7 @@ public static partial class MZ {
 				}
 				
 				public void AddIgnoredType(Type type) {
-					AddDataFieldFromToConvertedRuleWithType(type, (t, n, o) => null, (t, n, o) => null);
+//					AddDataFieldFromToConvertedRuleWithType(type, (t, n, o) => null, (t, n, o) => null);
 				}
 				
 				public void AddToDictionaryExtraAction(ActionWithSelfAndDict extraAction) {
@@ -161,8 +150,8 @@ public static partial class MZ {
 						
 						if (_convertedRulesFromDictByName.ContainsKey(name)) {
 							objectValue = _convertedRulesFromDictByName[name](type, name, dict[name]);
-						} else if (_convertedRulesFromDictByType.ContainsKey(type)) {
-							objectValue = _convertedRulesFromDictByType[type](type, name, dict[name]);
+						} else if (MZ.Datas.ConvertedRules.valueFromTypedObject.ContainsKey(type)) {
+							objectValue = MZ.Datas.ConvertedRules.valueFromTypedObject[type](type, dict[name]);
 						} else {
 							objectValue = dict[name];
 						}
@@ -170,7 +159,7 @@ public static partial class MZ {
 						try {
 							if (objectValue != null) fieldInfo.SetValue(this, objectValue);
 						} catch (ArgumentException ae) {
-							Debug.Log("convert fail " + name + " (type = " + type.ToString() + "), message = " + ae.Message);
+							MZ.Debugs.Log(name + "(type = " + type.ToString() + ") + " + " convert fail " + ", message = " + ae.Message);
 							MZ.Debugs.AssertAlwaysFalse("");
 						}
 						#else
@@ -190,8 +179,8 @@ public static partial class MZ {
 						
 						if (_convertedRulesFromDictByName.ContainsKey(name)) {
 							objectValue = _convertedRulesFromDictByName[name](type, name, dict[name]);
-						} else if (_convertedRulesFromDictByType.ContainsKey(type)) {
-							objectValue = _convertedRulesFromDictByType[type](type, name, dict[name]);
+						} else if (MZ.Datas.ConvertedRules.valueFromTypedObject.ContainsKey(type)) {
+							objectValue = MZ.Datas.ConvertedRules.valueFromTypedObject[type](type, dict[name]);
 						} else {
 							objectValue = dict[name];
 						}
@@ -204,7 +193,7 @@ public static partial class MZ {
 				
 				Dictionary<string, ObjectFromTypedObject> _convertedRulesFromDictByName = new Dictionary<string, ObjectFromTypedObject>();
 				
-				Dictionary<Type, ObjectFromTypedObject> _convertedRulesFromDictByType = new Dictionary<Type, ObjectFromTypedObject>();
+//				Dictionary<Type, ObjectFromTypedObject> _convertedRulesFromDictByType = new Dictionary<Type, ObjectFromTypedObject>();
 				
 				Dictionary<string, ObjectFromTypedObject> _convertedRulesToDictByName = new Dictionary<string, ObjectFromTypedObject>();
 				
@@ -215,59 +204,6 @@ public static partial class MZ {
 				List<ActionWithSelfAndDict> _extraActionFromDict = new List<ActionWithSelfAndDict>();
 				
 				List<ActionWithSelfAndDict> _extraActionToDict = new List<ActionWithSelfAndDict>();
-				
-				void AddDefaultRules() {
-					// int
-					AddDataFieldFromToConvertedRuleWithType(typeof(System.Int32), (type, name, objValue) => int.Parse(objValue.ToString()));
-					
-					// float
-					AddDataFieldFromToConvertedRuleWithType(typeof(System.Single), (type, name, objValue) => float.Parse(objValue.ToString()));
-					
-					// color
-					AddDataFieldFromToConvertedRuleWithType(
-						typeof(UnityEngine.Color),
-						(type, name, objValue) => MZ.DatabaseTypeConvert.ColorFromDBValue(objValue.ToString()),
-						(type, name, objValue) => objValue.ToString()
-					);
-					
-					// Rect
-					AddDataFieldFromToConvertedRuleWithType(
-						typeof(UnityEngine.Rect),
-						(type, name, objValue) => MZ.Rects.RectFromString(objValue.ToString()),
-						(type, name, objValue) => objValue.ToString()
-					);
-					
-					
-					// int list
-					AddDataFieldFromToConvertedRuleWithType(
-						typeof(List<int>),
-						(type, name, objValue) => {
-							List<object> rawObjList = (List<object>)objValue;
-							
-							List<int> resultList = new List<int>();
-							foreach (object rawObj in rawObjList) {
-								resultList.Add(int.Parse(rawObj.ToString()));
-							}
-							
-							return resultList;
-						}
-					);
-					
-					// float list
-					AddDataFieldFromToConvertedRuleWithType(
-						typeof(List<float>),
-						(type, name, objValue) => {
-							List<object> rawObjList = (List<object>)objValue;
-							
-							List<float> resultList = new List<float>();
-							foreach (object rawObj in rawObjList) {
-								resultList.Add(float.Parse(rawObj.ToString()));
-							}
-							
-							return resultList;
-						}
-					);
-				}
 			}
 		}
 	}

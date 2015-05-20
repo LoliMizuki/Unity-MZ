@@ -89,7 +89,7 @@ public static partial class MZ {
         
             if (splitedPosStrs.Length < 3) {
                 success = false;
-                return Vector2.zero;
+                return Vector3.zero;
             } 
         
             float x, y, z;
@@ -97,7 +97,7 @@ public static partial class MZ {
                 float.TryParse(splitedPosStrs[1], out y) == false || 
                 float.TryParse(splitedPosStrs[2], out z) == false) {
                 success = false;
-                return Vector2.zero;
+                return Vector3.zero;
             }
         
             success = true;
@@ -105,7 +105,7 @@ public static partial class MZ {
             return new Vector3(x, y, z);
         }
 
-        public static Vector2 Vector3FromString(string posStr) {
+        public static Vector3 Vector3FromString(string posStr) {
             bool success;
             return Vector3FromString(posStr, out success);
         }
