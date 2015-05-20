@@ -17,14 +17,13 @@ public static partial class MZ {
 		
 			public class Data : IJsonSerializable {
 				
-				public delegate object ObjectFromTypedObject(Type type, string name, object obj);
+				public delegate object ObjectFromTypedNamedObject(Type type, string name, object obj);
 				
-				public delegate void ActionWithSelfAndDict(Data self, Dictionary<string, object> dict);
+				public delegate void DataDictAction(Data self, Dictionary<string, object> dict);
 				
-				public Data() {            
-				}
+				public Data() {}
 				
-				public string ListAllDataFields() {
+				public string AllDataFieldsString() {
 					string str = this.GetType().ToString() + "{" + "\n";
 					
 					foreach (FieldInfo fi in this.GetType().GetFields()) str += fi.Name + ": " + fi.FieldType + "(field)\n";
@@ -35,26 +34,30 @@ public static partial class MZ {
 					return str;
 				}
 				
-				public void PrintAllDataFieldsToConsole() {
-					Debug.Log(ListAllDataFields());
+				public void LogAllDataFields() {
+					Debug.Log(AllDataFieldsString());
 				}
 				
 				public virtual Dictionary<string, object> ToDictionary() {		
 					Dictionary<string, object> dict = new Dictionary<string, object>();
 					
+					foreach (var action in _actionBeforeToDictionary) action(this, dict);
+					
 					AddFieldsToDict(dict);
 					AddPropertiesToDict(dict);
-					foreach (ActionWithSelfAndDict extraAction in _extraActionToDict) extraAction(this, dict);
+					
+					foreach (var action in _actionAfterToDict) action(this, dict);
 					
 					return dict;
 				}
 				
 				public virtual void FromDictionary(Dictionary<string, object> dict) {
-					foreach (ActionWithSelfAndDict action in _preActionFromDictionary) action(this, dict);
+					foreach (var action in _actionsBeforeFromDictionary) action(this, dict);
 					
 					FieldsFromDictionary(dict);
 					PropertiesFromDictionary(dict);
-					foreach (ActionWithSelfAndDict extraAction in _extraActionFromDict) extraAction(this, dict);
+					
+					foreach (var action in _actionAfterFromDict) action(this, dict);
 				}
 				
 				public virtual void FromJson(string json) {
@@ -66,7 +69,7 @@ public static partial class MZ {
 					return Json.Serialize(ToDictionary());
 				}
 				
-				public void AddDataFieldFromToConvertedRuleWithName(string name, ObjectFromTypedObject fromDict, ObjectFromTypedObject toDict = null) {
+				public void AddDataFieldFromToConvertedRuleWithName(string name, ObjectFromTypedNamedObject fromDict, ObjectFromTypedNamedObject toDict = null) {
 					_convertedRulesFromDictByName.Add(name, fromDict);
 					if (toDict != null) _convertedRulesToDictByName.Add(name, toDict);
 				}
@@ -75,29 +78,35 @@ public static partial class MZ {
 					AddDataFieldFromToConvertedRuleWithName(name, (t, n, o) => null, (t, n, o) => null);
 				}
 				
-				public void AddIgnoredDataFieldNameAndExtraAction(string name, ActionWithSelfAndDict fromAction = null, ActionWithSelfAndDict toAction = null) {
+				public void AddIgnoredDataFieldNameAndExtraAction(string name, DataDictAction fromAction = null, DataDictAction toAction = null) {
 					AddDataFieldFromToConvertedRuleWithName(name, (t, n, o) => null, (t, n, o) => null);
-					AddFromDictionaryExtraAction(fromAction);
-					AddToDictionaryExtraAction(toAction);
+					AddActionAfterFromDictionary(fromAction);
+					AddActionAfterToDictionary(toAction);
 				}
 				
 				public void AddIgnoredType(Type type) {
+					MZ.Debugs.AssertAlwaysFalse("not yet");
 //					AddDataFieldFromToConvertedRuleWithType(type, (t, n, o) => null, (t, n, o) => null);
 				}
 				
-				public void AddToDictionaryExtraAction(ActionWithSelfAndDict extraAction) {
-					if (extraAction == null) return;
-					_extraActionToDict.Add(extraAction);
+				public void AddActionBeforeToDictionary(DataDictAction action) {
+					if (action == null) return;
+					_actionBeforeToDictionary.Add(action);
 				}
 				
-				public void AddFromDictionaryExtraAction(ActionWithSelfAndDict extraAction) {
-					if (extraAction == null) return;
-					_extraActionFromDict.Add(extraAction);
+				public void AddActionAfterToDictionary(DataDictAction action) {
+					if (action == null) return;
+					_actionAfterToDict.Add(action);
 				}
 				
-				public void AddFromDictionaryPreAction(ActionWithSelfAndDict preAction) {
-					if (preAction == null) return;
-					_preActionFromDictionary.Add(preAction);
+				public void AddActionAfterFromDictionary(DataDictAction action) {
+					if (action == null) return;
+					_actionAfterFromDict.Add(action);
+				}
+				
+				public void AddActionBeforeFromDictionary(DataDictAction action) {
+					if (action == null) return;
+					_actionsBeforeFromDictionary.Add(action);
 				}
 				
 				protected virtual void AddFieldsToDict(Dictionary<string, object> dict) {
@@ -201,15 +210,17 @@ public static partial class MZ {
 				
 				
 				
-				Dictionary<string, ObjectFromTypedObject> _convertedRulesFromDictByName = new Dictionary<string, ObjectFromTypedObject>();
+				Dictionary<string, ObjectFromTypedNamedObject> _convertedRulesFromDictByName = new Dictionary<string, ObjectFromTypedNamedObject>();
 				
-				Dictionary<string, ObjectFromTypedObject> _convertedRulesToDictByName = new Dictionary<string, ObjectFromTypedObject>();
+				Dictionary<string, ObjectFromTypedNamedObject> _convertedRulesToDictByName = new Dictionary<string, ObjectFromTypedNamedObject>();
 				
-				List<ActionWithSelfAndDict> _preActionFromDictionary = new List<ActionWithSelfAndDict>();
+				List<DataDictAction> _actionsBeforeFromDictionary = new List<DataDictAction>();
 				
-				List<ActionWithSelfAndDict> _extraActionFromDict = new List<ActionWithSelfAndDict>();
+				List<DataDictAction> _actionAfterFromDict = new List<DataDictAction>();
 				
-				List<ActionWithSelfAndDict> _extraActionToDict = new List<ActionWithSelfAndDict>();
+				List<DataDictAction> _actionBeforeToDictionary = new List<DataDictAction>();
+				
+				List<DataDictAction> _actionAfterToDict = new List<DataDictAction>();
 			}
 		}
 	}
