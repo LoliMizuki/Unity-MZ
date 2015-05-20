@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class TestJsonClass : MZ.Datas.JsonDatas.Data {
 	
 	// fields
 	
-//	public int intFiled;
+	public int intFiled;
 
-//	public string strFiled;
+	public string strFiled;
 	
 	public Vector3 vector3Filed;
+	
+	public Color colorFiled;
+	
+	public Rect rectFiled;
 	
 	// properties
 }
@@ -22,26 +26,28 @@ public class JsonDataTestMain : MonoBehaviour {
 	}
 	
 	void Update() {
-	
 	}
 	
 	void TestDataToAndFromJson() {
-		var data = new TestJsonClass();
-//		data.intFiled = 123;
-//		data.strFiled = "nekoko";
-		data.vector3Filed = new Vector3(9, 8, 7);
+		var originalData = new TestJsonClass();
+		originalData.intFiled = 123;
+		originalData.strFiled = "nekoko";
+		originalData.vector3Filed = new Vector3(9, 8, 7);
+		originalData.colorFiled = Color.red;
+		originalData.rectFiled = new Rect(0,0, 100, 200);
 		
-		var json = data.ToJson();
+		var json = originalData.ToJson();
 		
-//		Debug.Log(data.ToDictionary()["vector3Filed"]);		
-//		Debug.Log(json);
+		Debug.Log("original json is: \n" + json);
 
-		var data2 = new TestJsonClass();
-		data2.FromJson(json);
+		var comparisonData = new TestJsonClass();
+		comparisonData.FromJson(json);
 
-//		MZ.Debugs.Assert(data.intFiled == data2.intFiled, "fail");
-//		MZ.Debugs.Assert(data.strFiled == data2.strFiled, "fail");
-//		MZ.Debugs.Assert(data.vector3Filed == data2.vector3Filed, "fail");
+		MZ.Debugs.Assert(originalData.intFiled == comparisonData.intFiled, "fail");
+		MZ.Debugs.Assert(originalData.strFiled == comparisonData.strFiled, "fail");
+		MZ.Debugs.Assert(originalData.vector3Filed == comparisonData.vector3Filed, "fail");
+		MZ.Debugs.Assert(originalData.colorFiled == comparisonData.colorFiled, "fail");
+		MZ.Debugs.Assert(originalData.rectFiled == comparisonData.rectFiled, "fail");
 		
 		Debug.Log("test ok");
 	}

@@ -101,38 +101,38 @@ public static partial class MZ {
 				}
 				
 				protected virtual void AddFieldsToDict(Dictionary<string, object> dict) {
-					foreach (FieldInfo fi in this.GetType().GetFields()) {
+					foreach (FieldInfo fieldInfo in this.GetType().GetFields()) {
 						object objValue = null;
 						
-						string name = fi.Name;
+						string name = fieldInfo.Name;
 						
-						Type type = fi.FieldType;
+						Type type = fieldInfo.FieldType;
 						
 						if (_convertedRulesToDictByName.ContainsKey(name)) {
-							objValue = _convertedRulesToDictByName[name](type, name, fi.GetValue(this));
-						} else if (_convertedRulesToDictByType.ContainsKey(type)) {
-							objValue = _convertedRulesToDictByType[type](type, name, fi.GetValue(this));
+							objValue = _convertedRulesToDictByName[name](type, name, fieldInfo.GetValue(this));
+						} else if (MZ.Datas.Converts.HasObjectFromTypedValueFunc(type)) {
+							objValue = MZ.Datas.Converts.ObjectFromTypedValue(type, fieldInfo.GetValue(this));
 						} else {
-							objValue = fi.GetValue(this);
+							objValue = fieldInfo.GetValue(this);
 						}
-						
+
 						if (objValue != null) dict.Add(name, objValue);
 					}
 				}
 				
 				protected virtual void AddPropertiesToDict(Dictionary<string, object> dict) {
-					foreach (PropertyInfo pi in this.GetType().GetProperties()) {
+					foreach (PropertyInfo propertyInfo in this.GetType().GetProperties()) {
 						object objValue = null;
 						
-						string name = pi.Name;
-						Type type = pi.PropertyType;
+						string name = propertyInfo.Name;
+						Type type = propertyInfo.PropertyType;
 						
 						if (_convertedRulesToDictByName.ContainsKey(name)) {
-							objValue = _convertedRulesToDictByName[name](type, name, pi.GetValue(this, null));
-						} else if (_convertedRulesToDictByType.ContainsKey(type)) {
-							objValue = _convertedRulesToDictByType[type](type, name, pi.GetValue(this, null));
-						} else { 
-							objValue = pi.GetValue(this, null);
+							objValue = _convertedRulesToDictByName[name](type, name, propertyInfo.GetValue(this, null));
+						} else if (MZ.Datas.Converts.HasObjectFromTypedValueFunc(type)) {
+							objValue = MZ.Datas.Converts.ObjectFromTypedValue(type, propertyInfo.GetValue(this, null));
+						} else {
+							objValue = propertyInfo.GetValue(this, null);
 						}
 						
 						if (objValue != null) dict.Add(name, objValue);
@@ -150,11 +150,12 @@ public static partial class MZ {
 						
 						if (_convertedRulesFromDictByName.ContainsKey(name)) {
 							objectValue = _convertedRulesFromDictByName[name](type, name, dict[name]);
-						} else if (MZ.Datas.ConvertedRules.valueFromTypedObject.ContainsKey(type)) {
-							objectValue = MZ.Datas.ConvertedRules.valueFromTypedObject[type](type, dict[name]);
+						} else if (MZ.Datas.Converts.HasValueFromTypedObjectFunc(type)) {
+							objectValue = MZ.Datas.Converts.ValueFromTypedObject(type, dict[name]);
 						} else {
 							objectValue = dict[name];
 						}
+						
 						#if UNITY_EDITOR
 						try {
 							if (objectValue != null) fieldInfo.SetValue(this, objectValue);
@@ -168,7 +169,7 @@ public static partial class MZ {
 					}
 				}
 				
-				virtual protected void PropertiesFromDictionary(Dictionary<string, object> dict) {
+				protected virtual void PropertiesFromDictionary(Dictionary<string, object> dict) {
 					foreach (PropertyInfo propertyInfo in this.GetType().GetProperties()) {
 						string name = propertyInfo.Name;
 						if (!dict.ContainsKey(name)) continue;
@@ -179,13 +180,22 @@ public static partial class MZ {
 						
 						if (_convertedRulesFromDictByName.ContainsKey(name)) {
 							objectValue = _convertedRulesFromDictByName[name](type, name, dict[name]);
-						} else if (MZ.Datas.ConvertedRules.valueFromTypedObject.ContainsKey(type)) {
-							objectValue = MZ.Datas.ConvertedRules.valueFromTypedObject[type](type, dict[name]);
+						} else if (MZ.Datas.Converts.HasValueFromTypedObjectFunc(type)) {
+							objectValue = MZ.Datas.Converts.ValueFromTypedObject(type, dict[name]);
 						} else {
 							objectValue = dict[name];
 						}
-						
+
+						#if UNITY_EDITOR
+						try {
+							if (objectValue != null) propertyInfo.SetValue(this, objectValue, null);
+						} catch (ArgumentException ae) {
+							MZ.Debugs.Log(name + "(type = " + type.ToString() + ") + " + " convert fail " + ", message = " + ae.Message);
+							MZ.Debugs.AssertAlwaysFalse("");
+						}
+						#else
 						if (objectValue != null) propertyInfo.SetValue(this, objectValue, null);
+						#endif
 					}
 				}
 				
@@ -193,11 +203,7 @@ public static partial class MZ {
 				
 				Dictionary<string, ObjectFromTypedObject> _convertedRulesFromDictByName = new Dictionary<string, ObjectFromTypedObject>();
 				
-//				Dictionary<Type, ObjectFromTypedObject> _convertedRulesFromDictByType = new Dictionary<Type, ObjectFromTypedObject>();
-				
 				Dictionary<string, ObjectFromTypedObject> _convertedRulesToDictByName = new Dictionary<string, ObjectFromTypedObject>();
-				
-				Dictionary<Type, ObjectFromTypedObject> _convertedRulesToDictByType = new Dictionary<Type, ObjectFromTypedObject>();
 				
 				List<ActionWithSelfAndDict> _preActionFromDictionary = new List<ActionWithSelfAndDict>();
 				
