@@ -9,6 +9,10 @@ public static partial class MZ {
             foreach (T t in list) action(t);
         }
         
+		public static void MapToListWithIndex<T>(List<T> list, Action<int, T> action) {
+			for (var index = 0; index < list.Count; index++) action(index, list[index]);
+		}
+        
         public static void MapToArray<T>(T[] array, Action<T> action) {
 			for (int i = 0; i < array.Length; i++) action(array[i]);
         }

@@ -15,5 +15,13 @@ public static partial class MZ {
 		public static int RandomWithRange(int min, int max) {
             return Random.Range(min, max + 1);
         }
+        
+        public static float DistaceV2(Vector2 a, Vector2 b) {
+        	return Vector2.Distance(a, b);
+        }
+        
+		public static float DistaceV3(Vector3 a, Vector3 b) {
+			return Vector3.Distance(a, b);
+		}
     }
 }

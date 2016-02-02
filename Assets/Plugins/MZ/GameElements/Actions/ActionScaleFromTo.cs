@@ -8,6 +8,10 @@ public static partial class MZ {
 		public static ActionScaleFromTo ScaleFromTo(Vector3 from, Vector3 to, float duration) {
 			return new ActionScaleFromTo(from, to, duration);
 		}
+		
+		public static ActionScaleFromTo ScaleTo(Vector3 to, float duration) {
+			return new ActionScaleFromTo(Vector3.zero, to, duration, true);
+		}
 	
 		public class ActionScaleFromTo : ActionBase {
 	
